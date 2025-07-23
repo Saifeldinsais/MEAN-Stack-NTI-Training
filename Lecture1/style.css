@@ -1,0 +1,17 @@
+body {
+  background-color: rgb(176, 226, 230);
+}
+
+h1 {
+  color: rgb(0, 20, 40);
+  text-align: center;
+  font-size: 50px;
+}
+
+.mid-container{
+    justify-content: center;
+    background-color: brown;
+    width: 100%;
+    height: 900px;
+}
+
