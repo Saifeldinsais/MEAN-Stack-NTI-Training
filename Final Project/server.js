@@ -1,12 +1,20 @@
-const express = require('express');
+const express = require("express");
+const eventRouter = require("./routers/tasks.routers");
+const usersRouter = require("./routers/user.routers");
 const connectDB = require("./config/db");
-const taskRouter = require("./routers/tasks.routers")
+const path = require("path");
 const app = express();
-
-connectDB();
 app.use(express.json());
-app.use("/tasks", taskRouter);
 
-app.listen(5000, () => {
-  console.log('Server is running on port: 5000');
+require("dotenv").config();
+const PORT = process.env.PORT;
+connectDB();
+
+
+app.use("/tasks", eventRouter);
+app.use("/tasks", usersRouter);
+app.use("/uploads",express.static(path.join(__dirname, "uploads")));
+
+app.listen(PORT, () => {
+  console.log(`My Events Server is Listening on port ${PORT}`);
 });

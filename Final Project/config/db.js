@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://saifeldinsais:ptCjLx3NpBDTRzTg@cluster0.yw38mns.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-      { dbName: "TasksDB" }
-    );
+    await mongoose.connect(process.env.MONGO_URI, {
+      dbName: process.env.dbName
+    });
     console.log(`Database Connection Successfully`);
   } catch (error) {
     console.log(`Error in Connection with Database. ${error}`);
