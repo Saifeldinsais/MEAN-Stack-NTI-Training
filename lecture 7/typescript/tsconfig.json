@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "esnext",                
+    "strict": true,
+   
+   
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
+ 
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+ 
+ 
+    "noEmitHelpers": true,
+    "importHelpers": false,
+ 
+    "skipLibCheck": true
+  },
+  "include": ["main.ts"]
+}
