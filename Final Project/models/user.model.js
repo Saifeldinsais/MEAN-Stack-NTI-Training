@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
     minlength: [8, "Minimum Length must be more than 8 characters"],
     
   },
-  favTasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+  listTasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 
 });
 
 userSchema.pre("save",async function(next) {
-   if(!this.isModified("password")) return next(); // if I changed password then hash it
+   if(!this.isModified("password")) return next(); 
       this.password = await bcrypt.hash(this.password, 10);
       next();
 })

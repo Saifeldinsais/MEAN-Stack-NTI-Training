@@ -1,15 +1,14 @@
 const express = require("express");
 const userControllers = require("../controllers/user.controller");
 const multer = require("multer");
+const upload = require("../middleware/upload.middleware");
+const multerErrorHandler = require("../middleware/multer.error.handler");
 
 const router = express.Router();
 
-router.post("/signup", userControllers.signup);
+router.route("/signup").post(upload.single("photo"),multerErrorHandler, userControllers.signup);
 router.post("/login", userControllers.login);
-router.post(
-  "/favoriteTask",
-  userControllers.protectRoutes,
-  userControllers.addTaskToFav
+router.post( "/listTasks", userControllers.protectRoutes, userControllers.addTaskToList
 );
 router.get("/getAllUsers", userControllers.getAllUsers);
 
