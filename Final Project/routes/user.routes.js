@@ -8,7 +8,15 @@ const router = express.Router();
 
 router.route("/signup").post(upload.single("photo"),multerErrorHandler, userControllers.signup);
 router.post("/login", userControllers.login);
-router.post( "/listTasks", userControllers.protectRoutes, userControllers.addTaskToList
+router.post( "/listTasks", 
+  userControllers.protectRoutes, 
+  userControllers.addTaskToList,
+  userControllers.deleteTaskByID
+);
+router.patch("/updateUser", 
+  userControllers.protectRoutes, 
+  userControllers.updateUserDetails,
+  userControllers.updateTaskByID
 );
 router.get("/getAllUsers", userControllers.getAllUsers);
 
