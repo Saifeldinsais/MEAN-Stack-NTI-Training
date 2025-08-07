@@ -1,0 +1,11 @@
+.task{
+    border: 2px solid red;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 300px;
+    background-color: lightyellow;
+}
+
+.completed{
+    background-color: lightgreen;
+}

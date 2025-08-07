@@ -6,18 +6,26 @@ const multerErrorHandler = require("../middleware/multer.error.handler");
 
 const router = express.Router();
 
-router.route("/signup").post(upload.single("photo"),multerErrorHandler, userControllers.signup);
+router.route("/signup").post(upload.single("photo"), multerErrorHandler, userControllers.signup);
 router.post("/login", userControllers.login);
-router.post( "/listTasks", 
-  userControllers.protectRoutes, 
-  userControllers.addTaskToList,
-  userControllers.deleteTaskByID
+router.post("/addTasks",
+  userControllers.protectRoutes,
+  userControllers.addTaskToList
 );
-router.patch("/updateUser", 
-  userControllers.protectRoutes, 
+router.patch("/updateUser",
+  upload.single("photo"),
+  multerErrorHandler,
+  userControllers.protectRoutes,
   userControllers.updateUserDetails,
   userControllers.updateTaskByID
 );
+
+router.get("/getUserDetails", userControllers.protectRoutes, userControllers.getUserDetails);
+router.get("/getUserTasks", userControllers.protectRoutes, userControllers.getUserTasks);
+
+router.delete("/deleteTask", userControllers.protectRoutes,
+  userControllers.deleteTaskByID
+)
 router.get("/getAllUsers", userControllers.getAllUsers);
 
 module.exports = router;
