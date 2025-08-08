@@ -1,43 +1,5 @@
-<h1>Tasks List:</h1>
 
-<div 
-    class="task"
-    [class.completed] = "tasks[0].status === 'completed' ? true : false"
-    [style.borderColor]=" tasks[0].status === 'completed' ? 'green' : 'red'">
-    <h3>
-        {{ tasks[0].name }}
-    </h3>
-
-    <p> {{ tasks[0].description }}</p>
-
-    
-   <input [(ngModel)] = "tasks[0].status">
-</div>
-
-<div 
-    class="task"
-    [class.completed] = "tasks[1].status === 'completed' ? true : false"
-    [style.borderColor]=" tasks[1].status === 'completed' ? 'green' : 'red'">
-    <h3>
-        {{ tasks[1].name }}
-    </h3>
-
-    <p> {{ tasks[1].description }}</p>
-
-    
-   <input [(ngModel)] = "tasks[1].status">
-</div>
-
-<div 
-    class="task"
-    [class.completed] = "tasks[2].status === 'completed' ? true : false"
-    [style.borderColor]=" tasks[2].status === 'completed' ? 'green' : 'red'">
-    <h3>
-        {{ tasks[2].name }}
-    </h3>
-
-    <p> {{ tasks[2].description }}</p>
-
-    
-   <input [(ngModel)] = "tasks[2].status">
-</div>
+<app-child [message] = "inputValue">
+    <p #projectedPara>hisuyhwusfbugusyg {{inputValue}}</p>
+</app-child>
+<button (click) = "changeInput()">Change Input value</button>

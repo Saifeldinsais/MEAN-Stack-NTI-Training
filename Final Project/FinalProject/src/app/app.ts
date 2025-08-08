@@ -1,24 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { Child } from './child/child';
 
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, Child],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  tasks = [
-    { id: 1, name: 'Nti task 8', description: 'Angular intro', status: 'completed'},
-    { id: 2, name: 'Racing team task', description: 'UART connection', status: 'In progress'},
-    { id: 3, name: 'Final project', description: 'MEAN stack application', status: 'In progress'},
-  ];
+  inputValue: string = "input from parent"
 
-  // complete(taskId: number) {
-  //   const task = this.tasks.find(task => task.id === taskId);
-  //   if (task) {
-  //     task.status = 'completed';
-  //   }
-  // }
+  counter: number = 0
+  constructor() {
+    console.log("root component");
+  }
+
+
+  changeInput(){
+    this.inputValue = "input changed by parent";
+  }
+
 }

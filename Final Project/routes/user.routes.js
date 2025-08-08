@@ -26,6 +26,6 @@ router.get("/getUserTasks", userControllers.protectRoutes, userControllers.getUs
 router.delete("/deleteTask", userControllers.protectRoutes,
   userControllers.deleteTaskByID
 )
-router.get("/getAllUsers", userControllers.getAllUsers);
+router.get("/", userControllers.getAllUsers);
 
 module.exports = router;

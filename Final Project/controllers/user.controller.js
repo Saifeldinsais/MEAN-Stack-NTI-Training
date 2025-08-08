@@ -73,7 +73,7 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, username, password } = req.body;
-  if (!email || !username) {
+  if (!email && !username) {
     return res.status(400).json({ status: "fail", message: "please enter either the username or the email" });
   }
 
@@ -89,7 +89,7 @@ const login = async (req, res) => {
 
   const matchedPassword = await bcrypt.compare(password, existingUser.password);
   if (!matchedPassword) {
-    return res.status(404).json({ status: "fail", message: "User not exists" });
+    return res.status(404).json({ status: "fail", message: "Wrong password" });
   }
   const token = jwt.sign(
     { id: existingUser._id, name: existingUser.name },
@@ -123,7 +123,7 @@ const protectRoutes = async (req, res, next) => {
 const getUserDetails = async (req, res) => {
   try {
     const userId = req.userId;
-    const user = await User.findById(userId, {password: false, __v: false})
+    const user = await User.findById(userId, { password: false, __v: false })
     if (!user) {
       return res.status(404).json({ status: "fail", message: "User not found" });
     }
@@ -136,8 +136,8 @@ const getUserDetails = async (req, res) => {
 const updateUserDetails = async (req, res) => {
   try {
     const userId = req.userId;
-    const { name, username, photo } = req.body;
-    const newPhoto = req.file ? req.file.path : null;
+    const { name, username } = req.body;
+    const newPhoto = req.file ? req.file.filename : null;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -147,10 +147,12 @@ const updateUserDetails = async (req, res) => {
       return res.status(404).json({ status: "fail", message: "User not found" });
     }
 
+    let updated = false;
+
     if (name) {
       if (name !== user.name) {
         user.name = name;
-        return res.status(200).json({ status: "success", message: "Name updated successfully" });
+        updated = true;
       } else {
         if (newPhoto) {
           fs.unlinkSync(path.join(__dirname, "../uploads", newPhoto));
@@ -168,18 +170,38 @@ const updateUserDetails = async (req, res) => {
           }
           return res.status(400).json({ status: "fail", message: "Username already exists" });
         }
-      } else {
-        user.username = username;
-        return res.status(200).json({ status: "success", message: "Username updated successfully" });
       }
+      user.username = username;
+      updated = true;
+
     }
-    
-    await user.save();
-    res.status(200).json({ status: "success", data: { user } });
+
+    if (newPhoto) {
+      if (user.photo && user.photo !== "profile.png") {
+        try {
+          fs.unlinkSync(path.join(__dirname, "../uploads", user.photo));
+        } catch (err) {
+          return res.status(500).json({ status: "fail", message: "Error deleting old photo" });
+        }
+      }
+      user.photo = newPhoto;
+      updated = true;
+    }
+
+    if (!updated) {
+      return res.status(400).json({ status: "fail", message: "No changes made to user details" });
+    } else {
+      await user.save();
+      return res.status(200).json({ status: "success", data: { user } });
+    }
 
   } catch (error) {
     if (req.file) {
-      fs.unlinkSync(path.join(__dirname, "../uploads", req.file.filename))
+      try {
+        fs.unlinkSync(path.join(__dirname, "../uploads", req.file.filename));
+      } catch (err) {
+        console.error("Error deleting uploaded file:", err);
+      }
     }
     res.status(400).json({ status: "fail", message: error.message });
   }
@@ -199,8 +221,8 @@ const addTaskToList = async (req, res) => {
     if (!user) {
       return res.status(404).json({ status: "fail", message: "User not found" });
     }
-    
-    const newTask = await Task.create({title, description, priority, dueDate, status, comments });
+
+    const newTask = await Task.create({ title, description, priority, dueDate, status, comments });
 
     user.listTasks.push(newTask);
     await user.save();
@@ -255,24 +277,24 @@ const updateTaskByID = async (req, res) => {
   }
 }
 
-const getUserTasks = async(req, res) => {
+const getUserTasks = async (req, res) => {
   try {
     const userId = req.userId;
     const user = await User.findById(userId).populate("listTasks");
-    
-    if(!user){
-      return res.status(404).json({status: "fail", message: "User not found"});
+
+    if (!user) {
+      return res.status(404).json({ status: "fail", message: "User not found" });
     }
 
     const tasks = user.listTasks;
-    if(!tasks || tasks.length === 0){
-      return res.status(404).json({status: "fail", message: "No tasks found for this user"});
+    if (!tasks || tasks.length === 0) {
+      return res.status(404).json({ status: "fail", message: "No tasks found for this user" });
     }
 
-    return res.status(200).json({status: "success", data: {tasks}});
+    return res.status(200).json({ status: "success", data: { tasks } });
 
   } catch (error) {
-    return res.status(404).json({status: "fail", message: `Error getting user tasks: ${error.message}`})
+    return res.status(404).json({ status: "fail", message: `Error getting user tasks: ${error.message}` })
   }
 }
 
