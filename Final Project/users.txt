@@ -43,3 +43,19 @@ ______________________________________________________________________
 ______________________________________________________________________
 ______________________________________________________________________
 ______________________________________________________________________
+
+{
+    "status": "success",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTZhNDBmYTVjZWFhMTc2MjJlZjgzZiIsIm5hbWUiOiJhaG1lZCIsImlhdCI6MTc1NDcwMjg2NCwiZXhwIjoxNzU1MzA3NjY0fQ.m9iKeOd6TM80wbc7m3O-Q68I0EewxennmM054jxKZJU",
+    "data": {
+        "user": {
+            "name": "ahmed",
+            "email": "ahmed@gmail.com",
+            "username": "ahmed",
+            "password": "$2b$10$1vRt0GMqMV63PnnSH1qHvOe2uk5Vsttq3kSbd8g2RAhK7vNdaAMRe",
+            "listTasks": [],
+            "_id": "6896a40fa5ceaa17622ef83f",
+            "__v": 0
+        }
+    }
+}

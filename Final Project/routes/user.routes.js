@@ -20,6 +20,12 @@ router.patch("/updateUser",
   userControllers.updateTaskByID
 );
 
+router.patch("/updatePassword",
+  userControllers.protectRoutes,
+  userControllers.resetPassword
+);
+
+
 router.get("/getUserDetails", userControllers.protectRoutes, userControllers.getUserDetails);
 router.get("/getUserTasks", userControllers.protectRoutes, userControllers.getUserTasks);
 

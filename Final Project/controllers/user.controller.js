@@ -296,4 +296,39 @@ const getUserTasks = async (req, res) => {
   }
 }
 
-module.exports = { signup, login, protectRoutes, updateUserDetails, addTaskToList, getAllUsers, deleteTaskByID, updateTaskByID, getUserDetails, getUserTasks };
+const resetPassword = async(req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ status: "fail", message: "User not found" });
+    }
+
+    const{ email, oldpassword, newPassword, confirmedPassword } = req.body;
+    if (!email || !oldpassword || !newPassword || !confirmedPassword) {
+      return res.status(400).json({ status: "fail", message: "All fields are required" });
+    }
+
+    const matchedPassword = await bcrypt.compare(oldpassword, user.password);
+    if (!matchedPassword) {
+      return res.status(400).json({ status: "fail", message: "Old password is incorrect" });
+    }
+    
+    if (newPassword !== confirmedPassword){
+      return res.status(400).json({ status: "fail", message: "New password and confirmed password do not match" });      
+    }
+
+    if (newPassword === oldpassword) {
+      return res.status(400).json({ status: "fail", message: "New password cannot be the same as the old password" });
+    }
+
+    user.password = newPassword;
+    await user.save();
+    return res.status(200).json({ status: "success", message: "Password updated successfully" });
+
+  } catch (error) {
+    return res.status(404).json({ status: "fail", message: error.message });
+  }
+}
+
+module.exports = { signup, login, protectRoutes, updateUserDetails, addTaskToList, getAllUsers, deleteTaskByID, updateTaskByID, getUserDetails, getUserTasks, resetPassword };
