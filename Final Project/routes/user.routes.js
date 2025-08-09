@@ -16,7 +16,11 @@ router.patch("/updateUser",
   upload.single("photo"),
   multerErrorHandler,
   userControllers.protectRoutes,
-  userControllers.updateUserDetails,
+  userControllers.updateUserDetails
+);
+
+router.patch("/updateUserTask/:id",
+  userControllers.protectRoutes,
   userControllers.updateTaskByID
 );
 
@@ -29,7 +33,7 @@ router.patch("/updatePassword",
 router.get("/getUserDetails", userControllers.protectRoutes, userControllers.getUserDetails);
 router.get("/getUserTasks", userControllers.protectRoutes, userControllers.getUserTasks);
 
-router.delete("/deleteTask", userControllers.protectRoutes,
+router.delete("/deleteTask/:id", userControllers.protectRoutes,
   userControllers.deleteTaskByID
 )
 router.get("/", userControllers.getAllUsers);

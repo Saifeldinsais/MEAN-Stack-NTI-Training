@@ -19,6 +19,42 @@ ______________________________________________________________________
         }
     }
 }
+
+taskat saif:
+{
+    "status": "success",
+    "data": {
+        "tasks": [
+            {
+                "_id": "6896a8cda5ceaa17622ef853",
+                "title": "NTI backend task",
+                "description": "task management backend task ",
+                "priority": "High",
+                "status": "Completed",
+                "comments": "task expected to be cone by saturday",
+                "__v": 0
+            },
+            {
+                "_id": "6896a947a5ceaa17622ef858",
+                "title": "NTI Frontend task",
+                "description": "Angular frontend revisiom ",
+                "priority": "Medium",
+                "status": "Not started",
+                "comments": "task should be completed before next session",
+                "__v": 0
+            },
+            {
+                "_id": "6896a9b2a5ceaa17622ef85e",
+                "title": "NTI Frontend task 2",
+                "description": "Angular frontend revision 2 ",
+                "priority": "Medium",
+                "status": "Not started",
+                "comments": "task should be completed before next session",
+                "__v": 0
+            }
+        ]
+    }
+}
 ______________________________________________________________________
 ______________________________________________________________________
 ______________________________________________________________________
@@ -59,3 +95,10 @@ ______________________________________________________________________
         }
     }
 }
+
+______________________________________________________________________
+______________________________________________________________________
+______________________________________________________________________
+
+"email": "saifsais@gmail.com",
+    "password": "12345678"

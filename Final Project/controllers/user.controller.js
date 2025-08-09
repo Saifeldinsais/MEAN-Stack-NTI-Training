@@ -233,27 +233,28 @@ const addTaskToList = async (req, res) => {
 
 const deleteTaskByID = async (req, res) => {
   try {
+    const taskId = req.params.id;
     const userId = req.userId;
-    const { taskID } = req.body;
-
-    if (!taskID) {
-      return res.status(400).json({ status: "fail", message: "taskID is required" });
-    }
 
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ status: "fail", message: "User not found" });
     }
 
-    const taskIndex = user.listTasks.indexOf(taskID);
+    const taskIndex = user.listTasks.indexOf(taskId);
     if (taskIndex === -1) {
-      return res.status(404).json({ status: "fail", message: "Task not found in user's list" });
-    } else {
-      user.listTasks.splice(taskIndex, 1);
-      await user.save();
-      return res.status(200).json({ status: "success", message: "Task removed from user's list" });
+      return res.status(404).json({ status: "fail", message: "Task not found in user's task list" });
     }
 
+    // dekete task from the user list of tasks 
+    user.listTasks.splice(taskIndex, 1);
+    await user.save();
+    // b delete the task from the taskDB 
+    const task = await Task.findByIdAndDelete(taskId);
+    if (!task) {
+      return res.status(404).json({ status: "fail", message: "Task not found" });
+    }
+    return res.status(200).json({ status: "success", message: "Task deleted successfully", data: { task } });
   } catch (error) {
     return res.status(404).json({ status: "fail", message: error.message });
   }
