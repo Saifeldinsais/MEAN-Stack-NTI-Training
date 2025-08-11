@@ -1,0 +1,24 @@
+<h2>Task List</h2>
+ 
+<button (click)="addTask()">Add Movie</button>
+ 
+<div>
+  @for (task of tasks; track $index) {
+ 
+  <div class="task-card">
+    <!-- <img [src]="task.coverImage" alt="cover image" /> -->
+ 
+    <div class="task-info">
+      <h3>{{ task.title }}</h3>
+ 
+      <p>{{ task.description }}</p>
+ 
+      <p>
+        <strong>priority: {{task.priority}}</strong>
+      </p>
+ 
+      
+    </div>
+  </div>
+  }
+</div>
