@@ -13,9 +13,13 @@ const taskSchema = new mongoose.Schema({
         default: "Mmedium"
     },
     dueDate: {
-        type: Date
+        type: Date,
     },
-    status:{
+    coverImage: {
+        type: String,
+        Default: "../uploads/task-image.jpg"
+    },
+    status: {
         type: String,
         enum: ["Not started", "In progress", "Completed", "Late", "Cancelled", "Delayed"],
         Default: "Not started",

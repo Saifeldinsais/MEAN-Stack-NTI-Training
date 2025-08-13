@@ -55,7 +55,7 @@ const signup = async (req, res) => {
 
     // jwt
     const token = jwt.sign(
-      { id: user._id, name: name },
+      { id: user._id, email },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
@@ -89,15 +89,17 @@ const login = async (req, res) => {
   if (!matchedPassword) {
     return res.status(404).json({ status: "fail", message: "Wrong password" });
   }
+
+  existingUser.password = undefined
   const token = jwt.sign(
-    { id: existingUser._id, name: existingUser.name },
+    { id: existingUser._id, email },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
   return res.status(200).json({
     status: "success",
     token: token,
-    data: { user: { name: existingUser.name, email } },
+    data: { user: { name: existingUser.name } },
   });
 };
 
@@ -254,7 +256,7 @@ const deleteTaskByID = async (req, res) => {
     if (!task) {
       return res.status(404).json({ status: "fail", message: "Task not found" });
     }
-    return res.status(200).json({ status: "success", message: "Task deleted successfully", data: { task } });
+    return res.status(200).json({ status: "success", message: "Task deleted successfully", data: { listTasks: user.listTasks } });
   } catch (error) {
     return res.status(404).json({ status: "fail", message: error.message });
   }
@@ -297,7 +299,7 @@ const getUserTasks = async (req, res) => {
   }
 }
 
-const resetPassword = async(req, res) => {
+const resetPassword = async (req, res) => {
   try {
     const userId = req.userId;
     const user = await User.findById(userId);
@@ -305,7 +307,7 @@ const resetPassword = async(req, res) => {
       return res.status(404).json({ status: "fail", message: "User not found" });
     }
 
-    const{ email, oldpassword, newPassword, confirmedPassword } = req.body;
+    const { email, oldpassword, newPassword, confirmedPassword } = req.body;
     if (!email || !oldpassword || !newPassword || !confirmedPassword) {
       return res.status(400).json({ status: "fail", message: "All fields are required" });
     }
@@ -314,9 +316,9 @@ const resetPassword = async(req, res) => {
     if (!matchedPassword) {
       return res.status(400).json({ status: "fail", message: "Old password is incorrect" });
     }
-    
-    if (newPassword !== confirmedPassword){
-      return res.status(400).json({ status: "fail", message: "New password and confirmed password do not match" });      
+
+    if (newPassword !== confirmedPassword) {
+      return res.status(400).json({ status: "fail", message: "New password and confirmed password do not match" });
     }
 
     if (newPassword === oldpassword) {

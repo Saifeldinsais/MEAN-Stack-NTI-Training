@@ -96,6 +96,28 @@ ______________________________________________________________________
     }
 }
 
+
+______________________________________________________________________
+______________________________________________________________________
+______________________________________________________________________
+
+
+{
+    "status": "success",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWEyYzA0YTkxNDcxNjBjY2YzZjE0YiIsIm5hbWUiOiJzYWlmIiwiaWF0IjoxNzU0OTM0Mjc2LCJleHAiOjE3NTU1MzkwNzZ9.VJd65a6rIugeQOKXh8Vm8kZ7Ob9tDIfQvLVxUyyyyt8",
+    "data": {
+        "user": {
+            "name": "saif",
+            "email": "sais@gmail.com",
+            "username": "sais",
+            "password": "$2b$10$H30Gh8YZq8r8djBCkOjke.RmS0AymlSuRv8SCsHHMkNf31IH.gnPO",
+            "listTasks": [],
+            "_id": "689a2c04a9147160ccf3f14b",
+            "__v": 0
+        }
+    }
+}
+
 ______________________________________________________________________
 ______________________________________________________________________
 ______________________________________________________________________

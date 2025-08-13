@@ -12,11 +12,25 @@ export class TaskService {
 
   getTasks(): Observable<Task[]> {
     return this.http.get<any>(this.URL).pipe(map((response) =>
-      response.data.task));
+      response.data.tasks));
   }
 
-  addTask(task: Task): Observable<Task>{
-  
-    return this.http.post<any>(this.URL, task).pipe(map((response) => response.data.task));
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<any>(this.URL, task)
+      .pipe(map((response) => {
+        return response.data.task
+      }));
+  }
+
+  updateTask(id: string | undefined , updatedTask: Partial<Task>): Observable<Task> {
+    return this.http.patch<any>(`${this.URL}/${id}`, updatedTask).pipe(map((response) => {
+      return response.data.task;
+    }));
+  }
+
+  deleteTask(id: string | undefined): Observable<Task> {
+    return this.http.delete<any>(`${this.URL}/${id}`).pipe(map((response) => {
+      return response.data.task;
+    }));
   }
 }

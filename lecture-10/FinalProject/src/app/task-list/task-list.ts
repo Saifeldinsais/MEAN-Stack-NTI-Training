@@ -8,12 +8,12 @@ import { TaskService } from '../services/task-service';
   templateUrl: './task-list.html',
   styleUrl: './task-list.css'
 })
-export class TaskList implements OnInit{
+export class TaskList implements OnInit {
   tasks: Task[] = []
 
   private taskService = inject(TaskService);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadTasks();
   }
 
@@ -28,42 +28,40 @@ export class TaskList implements OnInit{
 
   addTask() {
     const newTask: Task = {
-      // id: this.tasks.length + 1,
-      title: "ahmed mohamed",
-      description: "Description of new task",
+      title: "TASKKKKKKK",
+      description: "ay 7aga",
       priority: "Medium",
-      dueDate: "1/10/2025",
-      status: "Pending",
-      comments: "No comments yet"
+      coverImage: "asurt.png",
+      status: "Not started",
+      comments: "ay task"
     };
 
     this.taskService.addTask(newTask).subscribe({
       next: (data) => {
-        console.log('Task added successfully:', data);
         this.tasks.push(data);
+        console.log('Task added successfully:', data);
+      },
+      error: (err) => {
+        console.error('Error adding task:', err); // Add this to see backend error message
       }
     })
   }
 
-  // updateTask(id: number = 1) {
-  //   this.taskService.updateTask(id, { status: "In Progress" }).subscribe({
-  //     next: (data) => {
-  //       this.tasks = data;
-  //       console.log('Task updated successfully:', id);
-  //     }
-  //   })
-  // }
+  updateTask(id: string | undefined, index: number) {
+    this.taskService.updateTask(id, { status: 'Completed' }).subscribe({
+      next: (data) => {
+        this.tasks[index] = data;
+        console.log('Task updated successfully:', data);
+      }})
+  }
 
-  // deleteTask(id : number = 2){
-  //   this.taskService.deleteTask(id).subscribe({
-  //     next: (data) => {
-  //       this.tasks = data;
-  //       console.log('Task deleted successfully:', id);
-  //     },
-  //     error: (err) => {
-  //       console.error('Error deleting task:', err);
-  //     }
-  //   })
-  // }
+  deleteTask(id: string | undefined, index: number) {
+       this.taskService.deleteTask(id).subscribe({
+         next: (data) => {
+            this.tasks.splice(this.tasks.findIndex(task => task._id === id), 1);
+           console.log('Task updated successfully:', data);
+         }})
+    console.log('Task deleted successfully:', id);
+  }
 }
 

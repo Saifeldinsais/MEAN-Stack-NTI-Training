@@ -3,13 +3,13 @@ const Task = require("../models/tasks.model");
 const addTask = async (req, res) => {
     try {
         const task = await Task.create(req.body);
-        res.status(201).json({ status: "success", message: "Task added successfully" });
+        res.status(201).json({ status: "success", message: "Task added successfully", data: {task: task} });
     } catch (error) {
         res.status(400).json({ status: "fail", message: error.message });
     }
 };
 
-const listTasks = async (req, res) => {
+const getAllTasks = async (req, res) => {
     try {
         const tasks = await Task.find();
         res.status(200).json({ status: "success", length: tasks.length, data: { tasks: tasks } })
@@ -52,5 +52,5 @@ const deleteTaskByID = async (req, res) => {
 }
 
 module.exports = {
-    addTask, getTaskByID, listTasks, updateTaskByID, deleteTaskByID
+    addTask, getTaskByID, getAllTasks, updateTaskByID, deleteTaskByID
 }

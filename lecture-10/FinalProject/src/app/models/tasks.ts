@@ -1,9 +1,9 @@
 export interface Task {
-    // id: number;
+    _id?: string,
     title: String,
     description: String,
     priority: String,
-    dueDate: String,
+    coverImage: string,
     status: String,
     comments: String
 }
