@@ -1,0 +1,82 @@
+<section class="container" [class.touched-form]="signupForm.touched">
+    <h2>Sign up to TaskTrace!</h2>
+    <form class="form" #signupForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="input-box">
+            <label for="name">Name</label>
+            <input type="text" name="name" ngModel #nameRef="ngModel" required minlength="3">
+            @if(nameRef.invalid && nameRef.touched){
+            <div>
+                <small>Please enter a valid name</small>
+            </div>
+            }
+        </div>
+
+        <div class="input-box">
+            <label for="username">username</label>
+            <input type="text" name="username" ngModel #usernameRef="ngModel" required minlength="3">
+            @if(usernameRef.invalid && usernameRef.touched){
+            <div>
+                <small>Please enter a valid name</small>
+            </div>
+            }
+        </div>
+
+        <div class="input-box">
+            <label for="email">Email</label>
+            <input type="text" name="email" ngModel #emailRef="ngModel" required email>
+            @if(emailRef.invalid && emailRef.touched){
+            <div>
+                <small>Please enter a valid email</small>
+            </div>
+            }
+        </div>
+
+        <div class="input-box">
+            <label for="password">Password</label>
+            <input type="password" name="password" ngModel #passwordRef="ngModel" required minlength="8">
+            @if(passwordRef.invalid && passwordRef.touched){
+            <div>
+                <small>Please enter a valid password</small>
+            </div>
+            }
+        </div>
+
+        <div class="input-box">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" ngModel #confirmPasswordRef="ngModel" required minlength="8">
+            @if(confirmPasswordRef.invalid && confirmPasswordRef.touched){
+            <div>
+                <small>Please confirm your password</small>
+            </div>
+            }
+
+            @if(passwordMisMatch){
+            <div>
+                <small>Password Mismatch</small>
+            </div>
+            }
+        </div>
+
+        <div class="input-box">
+            <label for="photo">photo</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*">
+
+            @if(!selectedFileName){
+            <div>
+                <small>No file selected</small>
+            </div>
+            }
+            @if(selectedFileName){
+            <div>
+                <small style="color: black;">{{selectedFileName}}</small>
+            </div>
+            }
+        </div>
+
+        <button type="submit" class="submit-btn" [disabled]="!signupForm.valid"
+            [style.backgroundColor]="signupForm.valid? '#007bff' : 'gray' ">
+            Create Account
+        </button>
+    </form>
+
+</section>

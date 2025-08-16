@@ -20,20 +20,15 @@ const signup = async (req, res) => {
   const uploadedPhoto = req.file ? req.file.filename : "profile.png";
   const photoPath = path.join(__dirname, "../uploads", uploadedPhoto);
   try {
-    let { name, username, email, password, confirmPassword, photo } = req.body;
-    if (!name || !email || !password || !confirmPassword || !username) {
+    let { name, username, email, password, photo } = req.body;
+    if (!name || !email || !password || !username) {
       if (req.file) {
         fs.unlinkSync(photoPath);
       }
       return res.status(400).json({ status: "fail", message: "All fields are required" });
     }
 
-    if (password !== confirmPassword) {
-      if (req.file) {
-        fs.unlinkSync(photoPath);
-      }
-      return res.status(400).json({ status: "fail", message: "Passwords do not match" });
-    }
+    
 
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
@@ -207,97 +202,97 @@ const updateUserDetails = async (req, res) => {
   }
 }
 
-const addTaskToList = async (req, res) => {
-  try {
+// const addTaskToList = async (req, res) => {
+//   try {
 
-    const userId = req.userId;
-    const { title, description, priority, dueDate, status, comments } = req.body;
+//     const userId = req.userId;
+//     const { title, description, priority, dueDate, status, comments } = req.body;
 
-    if (!title) {
-      return res.status(400).json({ status: "fail", message: "Title is required" });
-    }
+//     if (!title) {
+//       return res.status(400).json({ status: "fail", message: "Title is required" });
+//     }
 
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ status: "fail", message: "User not found" });
-    }
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ status: "fail", message: "User not found" });
+//     }
 
-    const newTask = await Task.create({ title, description, priority, dueDate, status, comments });
+//     const newTask = await Task.create({ title, description, priority, dueDate, status, comments });
 
-    user.listTasks.push(newTask);
-    await user.save();
+//     user.listTasks.push(newTask);
+//     await user.save();
 
-    res.status(200).json({ status: "success", data: { listTasks: user.listTasks } });
-  } catch (error) {
-    res.status(500).json({ status: "fail", message: error.message });
-  }
-};
+//     res.status(200).json({ status: "success", data: { listTasks: user.listTasks } });
+//   } catch (error) {
+//     res.status(500).json({ status: "fail", message: error.message });
+//   }
+// };
 
-const deleteTaskByID = async (req, res) => {
-  try {
-    const taskId = req.params.id;
-    const userId = req.userId;
+// const deleteTaskByID = async (req, res) => {
+//   try {
+//     const taskId = req.params.id;
+//     const userId = req.userId;
 
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ status: "fail", message: "User not found" });
-    }
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ status: "fail", message: "User not found" });
+//     }
 
-    const taskIndex = user.listTasks.indexOf(taskId);
-    if (taskIndex === -1) {
-      return res.status(404).json({ status: "fail", message: "Task not found in user's task list" });
-    }
+//     const taskIndex = user.listTasks.indexOf(taskId);
+//     if (taskIndex === -1) {
+//       return res.status(404).json({ status: "fail", message: "Task not found in user's task list" });
+//     }
 
-    // dekete task from the user list of tasks 
-    user.listTasks.splice(taskIndex, 1);
-    await user.save();
-    // b delete the task from the taskDB 
-    const task = await Task.findByIdAndDelete(taskId);
-    if (!task) {
-      return res.status(404).json({ status: "fail", message: "Task not found" });
-    }
-    return res.status(200).json({ status: "success", message: "Task deleted successfully", data: { listTasks: user.listTasks } });
-  } catch (error) {
-    return res.status(404).json({ status: "fail", message: error.message });
-  }
-}
+//     // dekete task from the user list of tasks 
+//     user.listTasks.splice(taskIndex, 1);
+//     await user.save();
+//     // b delete the task from the taskDB 
+//     const task = await Task.findByIdAndDelete(taskId);
+//     if (!task) {
+//       return res.status(404).json({ status: "fail", message: "Task not found" });
+//     }
+//     return res.status(200).json({ status: "success", message: "Task deleted successfully", data: { listTasks: user.listTasks } });
+//   } catch (error) {
+//     return res.status(404).json({ status: "fail", message: error.message });
+//   }
+// }
 
-const updateTaskByID = async (req, res) => {
-  try {
-    const task = await Task.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-    if (!task) {
-      return res.status(404).json({ status: "fail", message: "Task not found" });
-    }
-    return res.status(200).json({ status: "success", data: { task } });
-  } catch (error) {
-    return res.status(404).json({ status: "fail", message: error.message });
-  }
-}
+// const updateTaskByID = async (req, res) => {
+//   try {
+//     const task = await Task.findByIdAndUpdate(
+//       req.params.id,
+//       req.body,
+//       { new: true, runValidators: true }
+//     );
+//     if (!task) {
+//       return res.status(404).json({ status: "fail", message: "Task not found" });
+//     }
+//     return res.status(200).json({ status: "success", data: { task } });
+//   } catch (error) {
+//     return res.status(404).json({ status: "fail", message: error.message });
+//   }
+// }
 
-const getUserTasks = async (req, res) => {
-  try {
-    const userId = req.userId;
-    const user = await User.findById(userId).populate("listTasks");
+// const getUserTasks = async (req, res) => {
+//   try {
+//     const userId = req.userId;
+//     const user = await User.findById(userId).populate("listTasks");
 
-    if (!user) {
-      return res.status(404).json({ status: "fail", message: "User not found" });
-    }
+//     if (!user) {
+//       return res.status(404).json({ status: "fail", message: "User not found" });
+//     }
 
-    const tasks = user.listTasks;
-    if (!tasks || tasks.length === 0) {
-      return res.status(404).json({ status: "fail", message: "No tasks found for this user" });
-    }
+//     const tasks = user.listTasks;
+//     if (!tasks || tasks.length === 0) {
+//       return res.status(404).json({ status: "fail", message: "No tasks found for this user" });
+//     }
 
-    return res.status(200).json({ status: "success", data: { tasks } });
+//     return res.status(200).json({ status: "success", data: { tasks } });
 
-  } catch (error) {
-    return res.status(404).json({ status: "fail", message: `Error getting user tasks: ${error.message}` })
-  }
-}
+//   } catch (error) {
+//     return res.status(404).json({ status: "fail", message: `Error getting user tasks: ${error.message}` })
+//   }
+// }
 
 const resetPassword = async (req, res) => {
   try {
@@ -334,4 +329,4 @@ const resetPassword = async (req, res) => {
   }
 }
 
-module.exports = { signup, login, protectRoutes, updateUserDetails, addTaskToList, getAllUsers, deleteTaskByID, updateTaskByID, getUserDetails, getUserTasks, resetPassword };
+module.exports = { signup, login, protectRoutes, updateUserDetails, getAllUsers,  getUserDetails, resetPassword };

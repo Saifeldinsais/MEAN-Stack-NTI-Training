@@ -1,56 +1,121 @@
 const Task = require("../models/tasks.model");
+const User = require("../models/user.model");
+
+
 
 const addTask = async (req, res) => {
-    try {
-        const task = await Task.create(req.body);
-        res.status(201).json({ status: "success", message: "Task added successfully", data: {task: task} });
-    } catch (error) {
-        res.status(400).json({ status: "fail", message: error.message });
+  try {
+    const userId = req.userId;
+    const { title, description, priority, dueDate, status, comments } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ status: "fail", message: "Title is required" });
     }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ status: "fail", message: "User not found" });
+    }
+
+    const newTask = await Task.create({
+      title, description, priority, dueDate, status, comments
+    });
+
+    user.listTasks.push(newTask._id);
+    await user.save();
+
+    return res.status(200).json({ status: "success", data: { listTasks: user.listTasks } });
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: `error in addTask: ${error.message}` });
+  }
 };
 
-const getAllTasks = async (req, res) => {
-    try {
-        const tasks = await Task.find();
-        res.status(200).json({ status: "success", length: tasks.length, data: { tasks: tasks } })
+const getUserTasks = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await User.findById(userId).populate("listTasks");
 
-    } catch (error) {
-        res.status(404).json({ status: "fail", message: error.message });
+    if (!user) {
+      return res.status(404).json({ status: "fail", message: "User not found" });
     }
-}
 
-const getTaskByID = async (req, res) => {
-    try {
-        const task = await Task.findById(req.params.id);
-        res.status(200).json({ status: "success", data: { task: task } })
-    } catch (error) {
-        res.status(404).json({ status: "fail", message: error.message });
-    }
-}
+    return res.status(200).json({ status: "success", data: { tasks: user.listTasks } });
+  } catch (error) {
+    return res.status(400).json({ status: "fail", message: `error in getUserTasks: ${error.message}` });
+  }
+};
 
 const updateTaskByID = async (req, res) => {
-    try {
-        const task = await Task.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true, runValidators: true }
-        );
+  try {
+    const userId = req.userId;
+    const taskId = req.params.id;
 
-        res.status(200).json({ status: "success", data: { task: task } })
-    } catch (error) {
-        res.status(404).json({ status: "fail", message: error.message })
+    const user = await User.findById(userId);
+    if (!user || !user.listTasks.includes(taskId)) {
+      return res.status(403).json({ status: "fail", message: "Not authorized" });
     }
-}
+
+    const updatedTask = await Task.findByIdAndUpdate(taskId, req.body, {
+      new: true,
+      runValidators: true
+    });
+
+    if (!updatedTask) {
+      return res.status(404).json({ status: "fail", message: "Task not found" });
+    }
+
+    return res.status(200).json({ status: "success", data: { task: updatedTask } });
+  } catch (error) {
+    return res.status(400).json({ status: "fail", message: `error in updateTaskByID: ${error.message}` });
+  }
+};
 
 const deleteTaskByID = async (req, res) => {
-    try {
-        const task = await Task.findByIdAndDelete(req.params.id);
-        res.status(200).json({ status: "success", data: { task: task } })
-    } catch (error) {
-        res.status(404).json({ status: "fail", message: error.message })
+  try {
+    const userId = req.userId;
+    const taskId = req.params.id;
+
+    const user = await User.findById(userId);
+    if (!user || !user.listTasks.includes(taskId)) {
+      return res.status(403).json({ status: "fail", message: "Not authorized" });
     }
-}
+
+    user.listTasks = user.listTasks.filter(id => id.toString() !== taskId);
+    await user.save();
+
+    await Task.findByIdAndDelete(taskId);
+
+    return res.status(200).json({ status: "success", message: "Task deleted" });
+  } catch (error) {
+    return res.status(400).json({ status: "fail", message: `error in deleteTaskByID: ${error.message}` });
+  }
+};
+
+const getTaskById = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const taskId = req.params.id;
+
+    const user = await User.findById(userId);
+    if (!user || !user.listTasks.includes(taskId)) {
+      return res.status(403).json({ status: "fail", message: "Not authorized" });
+    }
+
+    const task = await Task.findById(taskId);
+    if (!task) {
+      return res.status(404).json({ status: "fail", message: "Task not found" });
+    }
+
+    return res.status(200).json({ status: "success", data: { task } });
+  } catch (error) {
+    return res.status(400).json({ status: "fail", message: `error in getTaskByid: ${error.message}` });
+  }
+};
 
 module.exports = {
-    addTask, getTaskByID, getAllTasks, updateTaskByID, deleteTaskByID
-}
+  addTask,
+  getUserTasks,
+  updateTaskByID,
+  deleteTaskByID,
+  getTaskById
+};

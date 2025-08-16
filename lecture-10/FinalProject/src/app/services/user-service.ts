@@ -12,7 +12,7 @@ export class UserService {
   private url = 'http://localhost:5000/users'
 
 
-  addTaskToList(taskId: string): Observable<string[]> {
+  addTaskToList(task: any): Observable<string[]> {
 
     return this.authService.user.pipe(
       take(1), exhaustMap((user) => {
@@ -20,7 +20,7 @@ export class UserService {
           Authorization: `Bearer ${user?.token}`,
 
         });
-        return this.http.post<any>(`${this.url}/addTasks`, { taskId }, { headers })
+        return this.http.post<any>(`${this.url}/addTasks`,{ headers })
           .pipe(map((response) => {
             return response.data.listTasks
           }))

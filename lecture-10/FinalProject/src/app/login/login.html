@@ -1,5 +1,140 @@
-<button (click)="onLogin()">Login</button>
+<section class="container" [class.touched-form]="loginForm.touched">
+    <header>Log in to TaskTrace!</header>
 
-@if (isError){
-    <div class="error">{{errorMessage}}</div>
-}
+    <form class="form" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="input-box">
+            <input type="email" placeholder="Email" name="email" ngModel required #emailRef="ngModel" required
+                email />
+        </div>
+        @if(emailRef.invalid && emailRef.touched){
+        <div>
+            <small>*Valid Email is required</small>
+        </div>
+        }
+
+        <div class="input-box">
+            <input type="password" placeholder="Password" name="password" ngModel required #passwordRef="ngModel" required
+                minlength="8" />
+        </div>
+        @if(passwordRef.invalid && passwordRef.touched){
+        <div>
+            <small>*Please enter you password</small>
+        </div>
+        }
+
+
+        <input type="submit" value="Submit Application" class="submit-btn" [disabled]="!loginForm.valid"
+            [style.backgroundColor]="!loginForm.valid? 'gray' : '#007bff'" />
+    </form>
+</section>
+
+
+
+<!-- <button (click)="onLogin()">Log In</button>
+  
+  <button (click)="addTaskToList()">add</button>
+  
+  <button (click)="updateTaskById()">update</button>
+
+  
+  <button (click)="deleteTaskByID()">delete</button> -->
+
+
+
+<!-- ______________________________________________________________________________ -->
+<!-- <div class="column">
+      <div class="input-box">
+        <input type="text" 
+        placeholder="Full Name" 
+        name="fullName" 
+        #fname="ngModel"
+        required
+        ngModel/>
+      </div>
+      @if(fname.invalid && fname.touched){
+        <div>
+            <small>*Full name is required</small>
+        </div>
+      }
+ 
+      <div class="input-box">
+        <input type="text" placeholder="Position Applying For" name="position" ngModel />
+        
+      </div>
+    </div>
+ 
+    <div class="input-box">
+      <input type="email" placeholder="Email Address" name="email" ngModel required #emailRef="ngModel"  required email/>
+    </div>
+    @if(emailRef.invalid && emailRef.touched){
+            <div>
+                <small>*Valid Email is required</small>
+            </div>
+        }
+ 
+    <div class="column">
+      <div class="input-box">
+        <input type="number" placeholder="Phone Number" name="phone" ngModel/>
+      </div>
+      <div class="input-box">
+        <input type="date" placeholder="Available Start Date" name="startDate" ngModel/>
+      </div>
+    </div>
+ 
+    <div class="input-box">
+      <input type="text" placeholder="LinkedIn Profile" name="linkedIn" ngModel/>
+      <button class="btn-gen-username">Auto Fill from LinkedIn</button>
+    </div>
+ 
+    <div class="gender-box">
+      <h3>Employment Type</h3>
+      <div class="gender-option">
+        <div class="gender">
+          <input type="radio" id="full-time" name="employment" checked  ngModel/>
+          <label for="full-time">Full-Time</label>
+        </div>
+        <div class="gender">
+          <input type="radio" id="part-time" name="employment"  ngModel/>
+          <label for="part-time">Part-Time</label>
+        </div>
+        <div class="gender">
+          <input type="radio" id="contract" name="employment"  ngModel/>
+          <label for="contract">Contract</label>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="input-box address" ngModelGroup="address" #addressGroup="ngModelGroup">
+      <label>Address</label>
+      <input type="text" placeholder="Street Address" name="street1" ngModel required/>
+      <input type="text" placeholder="Street Address Line 2" name="street2" ngModel/>
+      <div class="column">
+        <div class="select-box">
+          <select name="country" ngModel>
+            <option hidden>Country</option>
+            <option>USA</option>
+            <option>UK</option>
+            <option>Canada</option>
+            <option>Australia</option>
+          </select>
+        </div>
+        <input type="text" placeholder="City" name="city" ngModel/>
+      </div>
+      <div class="column">
+        <input type="text" placeholder="State / Region" name="state" ngModel required />
+        <input type="number" placeholder="Postal Code" name="postalCode" ngModel/>
+      </div>
+
+      @if(addressGroup.invalid && addressGroup.touched){
+        <div>
+            <small>address required</small>
+        </div>
+      }
+    </div>
+ 
+    <div class="input-box">
+      <textarea placeholder="Why should we hire you?" name="textarea" ngModel></textarea>
+    </div>
+ 
+    <button type="button" (click)="setForm()">set value</button>
+    <button  type="button" (click)="patchForm()">patch value</button> -->

@@ -1,16 +1,19 @@
-    const express = require("express")
-    const tasksController = require("../controllers/tasks.controllers");
+const express = require("express")
+const tasksController = require("../controllers/tasks.controllers");
+const userController = require("../controllers/user.controller");
 
-    const router = express.Router();
-    
-    router.route("/")
-      .post(tasksController.addTask)
-      .get(tasksController.getAllTasks);
-    
-    router.route("/:id")
-      .get(tasksController.getTaskByID)
-      .patch(tasksController.updateTaskByID)
-      .delete(tasksController.deleteTaskByID);
+const router = express.Router();
+
+router.use(userController.protectRoutes);
+
+router.route("/")
+  .post(tasksController.addTask)
+  .get(tasksController.getUserTasks);
+
+router.route("/:id")
+  .get(tasksController.getTaskById)
+  .patch(tasksController.updateTaskByID)
+  .delete(tasksController.deleteTaskByID);
 
 
-    module.exports = router;
+module.exports = router;

@@ -104,6 +104,28 @@ ______________________________________________________________________
 
 {
     "status": "success",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWU5OWY2MjI3ZDNhZTNhOTljNmNiYSIsImVtYWlsIjoiZGFoeUBnbWFpbC5jb20iLCJpYXQiOjE3NTUyMjQ1NjcsImV4cCI6MTc1NTgyOTM2N30.dBjmf8ec-8HWsY2C8GQr1udvWhoqBBB7GBriy9pr8F8",
+    "data": {
+        "user": {
+            "name": "dahy",
+            "email": "dahy@gmail.com",
+            "username": "dahy",
+            "password": "$2b$10$AyMOamTgeTJiSFMLQqQia.iec3BwLKSmQ00kNsG0Mr2Sg.WnaUEta",
+            "listTasks": [],
+            "_id": "689e99f6227d3ae3a99c6cba",
+            "__v": 0
+        }
+    }
+}
+
+
+______________________________________________________________________
+______________________________________________________________________
+______________________________________________________________________
+
+
+{
+    "status": "success",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWEyYzA0YTkxNDcxNjBjY2YzZjE0YiIsIm5hbWUiOiJzYWlmIiwiaWF0IjoxNzU0OTM0Mjc2LCJleHAiOjE3NTU1MzkwNzZ9.VJd65a6rIugeQOKXh8Vm8kZ7Ob9tDIfQvLVxUyyyyt8",
     "data": {
         "user": {
