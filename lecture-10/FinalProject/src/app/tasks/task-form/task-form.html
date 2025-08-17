@@ -1,1 +1,62 @@
-<p>task-form works!</p>
+<section class="container" [class.touched-form]="newTaskForm.touched">
+    <h2>Enter your new task details</h2>
+    <form class="form" #newTaskForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="input-box">
+            <label for="title">Title: </label>
+            <input type="text" name="title" ngModel #titleRef='ngModel' required>
+            @if(titleRef?.invalid && titleRef?.touched){
+            <div>
+                <small>Please enter a title to your task</small>
+            </div>
+            }
+        </div>
+
+        <div class="input-box">
+            <label for="description">Description: </label>
+            <input type="text" name="description" ngModel #descriptionRef='ngModel'>
+        </div>
+
+        <div class="input-box">
+            <label for="priority">priority: </label>
+            <select id="priority" name="priority" ngModel #priorityRef="ngModel">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+                <option value="Crucial">Crucial</option>
+            </select>
+        </div>
+
+        <div class="input-box">
+            <label for="dueDate">Due Date: </label>
+            <input type="date" name="dueDate" ngModel #dueDateRef="ngModel" />
+        </div>
+
+        <div class="input-box">
+            <label for="status">Status: </label>
+            <select id="status" name="status" ngModel #statusRef="ngModel">
+                <option value="Not started" selected>Not started</option>
+                <option value="In progress">In progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Late">Late</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="Delayed">Delayed</option>
+            </select>
+        </div>
+
+        <div class="input-box">
+            <label for="comments">Comments: </label>
+            <input type="text" name="comments" ngModel #commentsRef='ngModel'>
+        </div>
+
+        <div class="input-box">
+            <label for="photo">photo</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        </div>
+
+
+        <button type="submit" class="submit-btn" [disabled]="!newTaskForm.valid"
+            [style.backgroundColor]="newTaskForm.valid? '#007bff' : 'gray' ">
+            Add Task
+        </button>
+    </form>
+</section>

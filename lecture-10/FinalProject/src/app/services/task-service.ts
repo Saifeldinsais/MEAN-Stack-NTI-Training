@@ -24,7 +24,7 @@ export class TaskService {
     )
   }
 
-  addTask(task: Task): Observable<Task> {
+  addTask(task: any): Observable<Task> {
     return this.authService.user.pipe(take(1),
       exhaustMap(user => {
         const headers = new HttpHeaders({

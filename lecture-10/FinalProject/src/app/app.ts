@@ -3,11 +3,13 @@ import { TaskList } from './tasks/task-list/task-list';
 import { Login } from './login/login';
 import { AuthService } from './services/auth-service';
 import { Signup } from './signup/signup';
+import { TaskDetail } from './tasks/task-detail/task-detail';
+import { TaskForm } from './tasks/task-form/task-form';
 
 
 @Component({
   selector: 'app-root',
-  imports: [TaskList, Login, Signup],
+  imports: [TaskList, Login, Signup, TaskDetail, TaskForm],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
