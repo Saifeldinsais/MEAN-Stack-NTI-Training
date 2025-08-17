@@ -11,7 +11,9 @@ export class UserService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
   private url = 'http://localhost:5000/users'
-  
+
+
+  // ask why did we create the user as a class and why does using observable get an error
 
   // getUserDetails(): Observable<User>{
 

@@ -9,8 +9,8 @@ import { TaskService } from '../../services/task-service';
   styleUrl: './task-list.css'
 })
 export class TaskList implements OnInit {
-  tasks: Task[] = []
 
+  tasks: Task[] = []
   private taskService = inject(TaskService);
 
   ngOnInit(): void {
@@ -22,47 +22,62 @@ export class TaskList implements OnInit {
       next: (data) => {
         this.tasks = data;
         console.log(data);
+      },
+      error: (error) => {
+        console.error('error loading tasks:', error);
       }
     })
   }
 
+  deleteTask(id: string | undefined) {
+    if (!id) return;
+    this.taskService.deleteTask(id).subscribe({
+      next: () => {
+        console.log("task deleted");
+        this.loadTasks();
+      },
+      error: (error) => {
+        console.error('error deleting task:', error);
+      }
+    });
+  }
 }
 
 
-  //   addTask() {
-  //   const newTask: Task = {
-  //     title: "TASKKKKKKK",
-  //     description: "ay 7aga",
-  //     priority: "Medium",
-  //     coverImage: "asurt.png",
-  //     status: "Not started",
-  //     comments: "ay task"
-  //   };
+//   addTask() {
+//   const newTask: Task = {
+//     title: "TASKKKKKKK",
+//     description: "ay 7aga",
+//     priority: "Medium",
+//     coverImage: "asurt.png",
+//     status: "Not started",
+//     comments: "ay task"
+//   };
 
-  //   this.taskService.addTask(newTask).subscribe({
-  //     next: (data) => {
-  //       this.tasks.push(data);
-  //       console.log('Task added successfully:', data);
-  //     },
-  //     error: (err) => {
-  //       console.error('Error adding task:', err); // Add this to see backend error message
-  //     }
-  //   })
-  // }
+//   this.taskService.addTask(newTask).subscribe({
+//     next: (data) => {
+//       this.tasks.push(data);
+//       console.log('Task added successfully:', data);
+//     },
+//     error: (err) => {
+//       console.error('Error adding task:', err); // Add this to see backend error message
+//     }
+//   })
+// }
 
-  // updateTask(id: string | undefined, index: number) {
-  //   this.taskService.updateTask(id, { status: 'Completed' }).subscribe({
-  //     next: (data) => {
-  //       this.tasks[index] = data;
-  //       console.log('Task updated successfully:', data);
-  //     }})
-  // }
+// updateTask(id: string | undefined, index: number) {
+//   this.taskService.updateTask(id, { status: 'Completed' }).subscribe({
+//     next: (data) => {
+//       this.tasks[index] = data;
+//       console.log('Task updated successfully:', data);
+//     }})
+// }
 
-  // deleteTask(id: string | undefined, index: number) {
-  //      this.taskService.deleteTask(id).subscribe({
-  //        next: (data) => {
-  //           this.tasks.splice(this.tasks.findIndex(task => task._id === id), 1);
-  //          console.log('Task updated successfully:', data);
-  //        }})
-  //   console.log('Task deleted successfully:', id);
-  // }
+// deleteTask(id: string | undefined, index: number) {
+//      this.taskService.deleteTask(id).subscribe({
+//        next: (data) => {
+//           this.tasks.splice(this.tasks.findIndex(task => task._id === id), 1);
+//          console.log('Task updated successfully:', data);
+//        }})
+//   console.log('Task deleted successfully:', id);
+// }

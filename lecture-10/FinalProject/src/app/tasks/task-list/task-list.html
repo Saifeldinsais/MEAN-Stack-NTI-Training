@@ -1,14 +1,32 @@
-<h2 class="title">Task List</h2>
+<h2 class="page-title">Task List</h2>
 
 
-<button class="add-btn" (click)="addTask()">
+<!-- <button class="add-btn" (click)="addTask()">
   Add Movie
-</button>
+</button> -->
 
 
 <div class="task-grid">
   @for (task of tasks; track task._id; let i = $index) {
-  <div class="task-card">
+  <div class="task-container">
+    <div class="task-header">
+      <div class="task-title"><strong>{{task.title}}</strong></div>
+      <div class="task-priority"><strong>Priority</strong></div>
+      <div class="task-status"><strong>Status</strong></div>
+    </div>
+    <div class="task-body">
+      <div class="task-image">
+        <!-- <img [src]="task.coverImage ? 'http://localhost:5000/uploads/' + task.coverImage : 'assets/task-default.jpg'" alt="{{ task.title }}" class="task-img" /> -->
+        <img src="../../assets/task-default.jpg" alt="task-default">
+      </div>
+      <div class="task-details"></div>
+    </div>
+  </div>
+  }
+</div>
+
+
+<!-- <div class="task-card">
     <div class="task-info">
 
       <img [src]='"http://localhost:5000/uploads/" + task.coverImage' alt="{{ task.title }}" class="task-img" />
@@ -31,6 +49,4 @@
 
 
     </div>
-  </div>
-  }
-</div>
+  </div> -->
