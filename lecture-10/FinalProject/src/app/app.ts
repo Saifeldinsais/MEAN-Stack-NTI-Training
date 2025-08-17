@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { TaskList } from './task-list/task-list';
+import { TaskList } from './tasks/task-list/task-list';
 import { Login } from './login/login';
 import { AuthService } from './services/auth-service';
 import { Signup } from './signup/signup';

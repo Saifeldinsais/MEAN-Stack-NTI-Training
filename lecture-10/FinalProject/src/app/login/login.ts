@@ -13,7 +13,58 @@ export class Login {
   private authService = inject(AuthService)
   private userService = inject(UserService);
 
-  // errorMessage: string = '';
+  @ViewChild("loginForm") loginForm !: NgForm;
+
+  formData: any = {}
+
+  onSubmit(){
+    console.log(this.loginForm);
+    console.log(this.loginForm.value);
+    
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+      next: (token) => {
+        console.log(token);
+        console.log("tokennnnn")
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+    this.formData = {...this.loginForm.value}
+    this.loginForm.reset();
+    console.log("submit button working");
+
+  }
+}
+
+
+// setForm(){
+  //   this.jobForm.form.setValue({
+  //     fullName: 'saif',
+  //     position : 'student',
+  //     email: 'saif@gmail.com',
+  //     phone: '0123456789',
+  //     linkedIn: 'ay 7aga',
+  //     startDate: '2000/01/01',
+  //     employment: 'full-time',
+  //     address: {
+  //       street1: 'street',
+  //       street2: '',
+  //       city: 'cairo',
+  //       country: 'egypt',
+  //       state: 'cairo',
+  //       postalCode: '1234'
+  //     },
+
+  //     textarea: 'hello'
+
+  //   })
+  //   console.log("workingggg")
+  // }
+
+  // patchForm(){}
+
+    // errorMessage: string = '';
   // isError: boolean = false;
 
 
@@ -74,55 +125,3 @@ export class Login {
 // ___________________________________________________________________________________
 // ___________________________________________________________________________________
 // ___________________________________________________________________________________
-
-
-  @ViewChild("loginForm") loginForm !: NgForm;
-
-  formData: any = {}
-
-  onSubmit(){
-    console.log(this.loginForm);
-    console.log(this.loginForm.value);
-    
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: (token) => {
-        console.log(token);
-        console.log("tokennnnn")
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-    this.formData = {...this.loginForm.value}
-    this.loginForm.reset();
-    console.log("submit button working");
-
-  }
-
-  // setForm(){
-  //   this.jobForm.form.setValue({
-  //     fullName: 'saif',
-  //     position : 'student',
-  //     email: 'saif@gmail.com',
-  //     phone: '0123456789',
-  //     linkedIn: 'ay 7aga',
-  //     startDate: '2000/01/01',
-  //     employment: 'full-time',
-  //     address: {
-  //       street1: 'street',
-  //       street2: '',
-  //       city: 'cairo',
-  //       country: 'egypt',
-  //       state: 'cairo',
-  //       postalCode: '1234'
-  //     },
-
-  //     textarea: 'hello'
-
-  //   })
-  //   console.log("workingggg")
-  // }
-
-  // patchForm(){}
-
-}

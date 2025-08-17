@@ -1,36 +1,77 @@
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { exhaustMap, map, Observable, take } from 'rxjs';
 import { Task } from '../models/tasks';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
   private http = inject(HttpClient);
+  private authService = inject(AuthService)
   private URL = 'http://localhost:5000/tasks';
 
   getTasks(): Observable<Task[]> {
-    return this.http.get<any>(this.URL).pipe(map((response) =>
-      response.data.tasks));
+    return this.authService.user.pipe(take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`
+        });
+        return this.http.get<any>(this.URL, { headers })
+          .pipe(map(response => response.data.tasks))
+      })
+    )
   }
 
   addTask(task: Task): Observable<Task> {
-    return this.http.post<any>(this.URL, task)
-      .pipe(map((response) => {
-        return response.data.task
-      }));
+    return this.authService.user.pipe(take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`
+        });
+        return this.http.post<any>(this.URL, task, { headers })
+          .pipe(map(response => response.data.tasks))
+      })
+    )
   }
 
-  updateTask(id: string | undefined , updatedTask: Partial<Task>): Observable<Task> {
-    return this.http.patch<any>(`${this.URL}/${id}`, updatedTask).pipe(map((response) => {
-      return response.data.task;
-    }));
+  updateTask(id: string | undefined, updatedTask: Partial<Task>): Observable<Task> {
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`
+        });
+        return this.http.patch<any>(`${this.URL}/${id}`, updatedTask, { headers })
+          .pipe(map(response => response.data.task));
+      })
+    );
   }
 
   deleteTask(id: string | undefined): Observable<Task> {
-    return this.http.delete<any>(`${this.URL}/${id}`).pipe(map((response) => {
-      return response.data.task;
-    }));
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`
+        });
+        return this.http.delete<any>(`${this.URL}/${id}`, { headers })
+          .pipe(map(response => response.data.tasks));
+      })
+    );
+  }
+
+  getTaskByid(id: string | undefined): Observable<Task>{
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`
+        });
+        return this.http.get<any>(`${this.URL}/${id}`, { headers })
+          .pipe(map(response => response.data.task));
+      })
+    );
   }
 }

@@ -24,7 +24,7 @@ const addTask = async (req, res) => {
     user.listTasks.push(newTask._id);
     await user.save();
 
-    return res.status(200).json({ status: "success", data: { listTasks: user.listTasks } });
+    return res.status(200).json({ status: "success", data: { tasks: user.listTasks } });
   } catch (error) {
     res.status(400).json({ status: "fail", message: `error in addTask: ${error.message}` });
   }
@@ -85,7 +85,7 @@ const deleteTaskByID = async (req, res) => {
 
     await Task.findByIdAndDelete(taskId);
 
-    return res.status(200).json({ status: "success", message: "Task deleted" });
+    return res.status(200).json({ status: "success", message: "Task deleted", data: { tasks: user.listTasks } });
   } catch (error) {
     return res.status(400).json({ status: "fail", message: `error in deleteTaskByID: ${error.message}` });
   }
@@ -106,7 +106,7 @@ const getTaskById = async (req, res) => {
       return res.status(404).json({ status: "fail", message: "Task not found" });
     }
 
-    return res.status(200).json({ status: "success", data: { task } });
+    return res.status(200).json({ status: "success", data: { task: task } });
   } catch (error) {
     return res.status(400).json({ status: "fail", message: `error in getTaskByid: ${error.message}` });
   }
