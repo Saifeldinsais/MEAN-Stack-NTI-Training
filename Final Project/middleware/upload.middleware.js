@@ -2,14 +2,30 @@ const multer = require("multer")
 const path = require("path");
 
 const diskStorage = multer.diskStorage({
-    destination: function (req, file, cb){
-        cb(null, "uploads");
-    }, 
-    filename: function(req, file, cb){
-        const ext = file.mimetype.split("/")[1];
-        const filename = `user-${Date.now()}.${ext}`;
-        cb(null, filename);
+  destination: function (req, file, cb) {
+    if (file.fieldname === 'taskPhoto') {
+      cb(null, 'uploads/tasks'); // For task photos
+    } else if (file.fieldname === 'photo') {
+      cb(null, 'uploads'); // For user profile pictures
+    } else {
+      cb(new Error('Invalid field name for file upload'), null);
     }
+  },
+  filename: function (req, file, cb) {
+    const ext = file.mimetype.split("/")[1];
+
+    let filename;
+
+    if (file.fieldname === 'taskPhoto') {
+      filename = `task-${Date.now()}.${ext}`;
+    } else if (file.fieldname === 'photo') {
+      filename = `user-${Date.now()}.${ext}`;
+    } else {
+      return cb(new Error('Invalid file field name'), null);
+    }
+
+    cb(null, filename);
+  }
 });
 
 const fileFilter = (req, file, cb) => {

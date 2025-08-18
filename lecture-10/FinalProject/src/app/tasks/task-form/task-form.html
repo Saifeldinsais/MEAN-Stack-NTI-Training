@@ -1,4 +1,4 @@
-<section class="container" [class.touched-form]="newTaskForm.touched">
+<!-- <section class="container" [class.touched-form]="newTaskForm.touched">
     <h2>Enter your new task details</h2>
     <form class="form" #newTaskForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="input-box">
@@ -59,4 +59,107 @@
             Add Task
         </button>
     </form>
-</section>
+</section> -->
+
+
+
+<!-- 
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________ -->
+
+<div class="container">
+    <header>
+        <div>
+            <div class="title">New Task Form</div>
+            <p class="lead">
+                Fill in the task details. Fields marked with <span class="req">*</span> are required.
+            </p>
+        </div>
+    </header>
+
+    <form #newTaskForm="ngForm" (ngSubmit)="onSubmit()" aria-label="Task Form" [formGroup]="addTaskForm">
+        <!-- Basic Information -->
+        <section class="card">
+            <h2>Basic Information</h2>
+            <div class="fields">
+                <div class="field span-6">
+                    <label for="title">Title <span class="req">*</span></label>
+                    <input id="title" name="title" type="text" required placeholder="e.g., Build API"
+                        formControlName="title" />
+                    <div class="hint">Task title shown to users.</div>
+
+                    <!-- @if(titleRef.invalid && titleRef.touched){
+                    <div>
+                        <small class="error">Title is required</small>
+                    </div>
+                    } -->
+                </div>
+
+                <div class="field span-6">
+                    <label for="description">Description</label>
+                    <input id="description" name="description" type="text" ngModel
+                        placeholder="e.g., Backend Node.js work" formControlName="description" />
+                </div>
+
+                <div class="field span-6">
+                    <label for="dueDate">Due Date</label>
+                    <input id="dueDate" name="dueDate" type="date" ngModel formControlName="dueDate" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Task Details -->
+        <section class="card">
+            <h2>Task Details</h2>
+            <div class="fields">
+                <div class="field span-4">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority" ngModel formControlName="priority">
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                        <option value="Crucial">Crucial</option>
+                    </select>
+                </div>
+
+                <div class="field span-4">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" ngModel formControlName="status">
+                        <option value="Not started" selected>Not started</option>
+                        <option value="In progress">In progress</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Late">Late</option>
+                        <option value="Cancelled">Cancelled</option>
+                        <option value="Delayed">Delayed</option>
+                    </select>
+                </div>
+
+                <div class="field span-4">
+                    <label for="comments">Comments</label>
+                    <input id="comments" name="comments" type="text" ngModel placeholder="Any notes..."
+                        formControlName="comments" />
+                </div>
+            </div>
+        </section>
+
+        <div class="field span-6">
+            <label for="taskPhoto">Cover Image <span class="req">*</span></label>
+            <input type="file" id="taskPhoto" name="taskPhoto" accept="image/*" (change)="onFileSelected($event)" />
+            <div class="hint">
+                Only image files (JPG, PNG, WebP) are allowed. Selected:
+                {{ selectedFileName || 'none' }}
+            </div>
+        </div>
+
+        <!-- Submit Actions -->
+        <div class="actions">
+            <button type="reset" class="btn ghost">Clear</button>
+            <button type="submit" class="btn primary" [disabled]="!newTaskForm.valid">Save Task</button>
+        </div>
+    </form>
+</div>

@@ -1,9 +1,10 @@
 export interface Task {
     _id?: string,
     title: String,
-    description: String,
+    description?: String,
     priority: String,
-    coverImage: string,
+    dueDate?: Date,
+    coverImage?: File,
     status: String,
-    comments: String
+    comments?: String
 }

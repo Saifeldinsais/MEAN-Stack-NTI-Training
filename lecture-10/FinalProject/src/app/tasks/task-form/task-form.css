@@ -1,0 +1,130 @@
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Header */
+header .title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.lead {
+  font-size: 0.9rem;
+  color: #666;
+}
+.req {
+  color: #c62828;
+}
+
+/* Card Sections */
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Field Groups */
+.fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+.field input,
+.field select,
+.field textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #c62828;
+}
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.hint {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 0.25rem;
+}
+.error {
+  color: #c62828;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn.primary {
+  background: #c62828;
+  color: #fff;
+}
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #c62828;
+  color: #c62828;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+
+.toggle input:checked + .slider {
+    background-color: #c62828;
+}
+
+.toggle input:checked + .slider::before{
+    transform: translateX(20px);
+}
+
+form.ng-invalid .primary{
+    background-color: #888;
+    cursor: not-allowed;
+}
+
+input.ng-invalid.ng-touched{
+    border: 1px solid #c62828;
+}
+
+
+
+/* Responsive */
+@media (max-width: 600px) {
+  .fields {
+    flex-direction: column;
+  }
+}
