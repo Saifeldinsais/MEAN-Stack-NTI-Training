@@ -8,7 +8,7 @@ const addTask = async (req, res) => {
     const userId = req.userId;
     const { title, description, priority, dueDate, status, comments } = req.body;
     console.log("File received:", req.file);
-    const imagePath = req.file ? req.file.filename : null;
+    const imagePath = req.file ? req.file.filename : 'uploads/task-image.png';
 //    const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
 
 

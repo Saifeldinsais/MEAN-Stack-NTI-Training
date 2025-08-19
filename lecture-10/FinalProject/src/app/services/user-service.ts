@@ -24,20 +24,22 @@ export class UserService {
     );
   }
 
-  updateUserDetails(updatedData: { name?: string; email?: string; photo?: File }): Observable<any> {
+  updateUserDetails(updatedData: {name?: string, email?: string, username?: string, photo?: File }): Observable<any> {
     const formData = new FormData();
     if (updatedData.name) formData.append('name', updatedData.name);
     if (updatedData.email) formData.append('email', updatedData.email);
+    if (updatedData.username) formData.append('username', updatedData.username);
     if (updatedData.photo) formData.append('photo', updatedData.photo);
 
     return this.authService.user.pipe(
       take(1),
       exhaustMap(user => {
         const headers = new HttpHeaders({ Authorization: `Bearer ${user?.token}` });
-        return this.http.patch(`${this.url}/updateMe`, formData, { headers });
+        return this.http.patch(`${this.url}/updateUser`, formData, { headers });
       })
     );
   }
+
 
   resetPassword(currentPassword: string, newPassword: string, newPasswordConfirm: string): Observable<any> {
     const body = { currentPassword, newPassword, newPasswordConfirm };

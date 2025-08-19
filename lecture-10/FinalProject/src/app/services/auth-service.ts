@@ -25,11 +25,14 @@ export class AuthService {
             decoded.email,
             decoded.id,
             response.token,
-            expirationDate
+            expirationDate,
+          response.data.user.name,
+          response.data.user.username,
+          response.data.user.photo
           );
           this.user.next(loggedInUser);
           localStorage.setItem('userData', JSON.stringify(loggedInUser));
- 
+
           return response.data.user;
         } else {
           throw new Error('Token not found in response');
@@ -43,8 +46,8 @@ export class AuthService {
   login(email: string, password: string) {
     console.log("authservice reached");
     console.log(email, password);
-    
-    
+
+
     return this.http.post<any>(`${this.url}login`, { email, password }).pipe(
       map((response) => {
         if (response.token) {
@@ -55,7 +58,10 @@ export class AuthService {
             decoded.email,
             decoded.id,
             response.token,
-            expirationDate
+            expirationDate,
+            response.data.user.name,
+            response.data.user.username,
+            response.data.user.photo
           );
 
           this.user.next(loggedInUser);
@@ -81,26 +87,26 @@ export class AuthService {
       }
     }
 
-    return throwError(()=> errorResponse)
+    return throwError(() => errorResponse)
   }
 
 
-  autoLogin(){
+  autoLogin() {
     const userDataString = localStorage.getItem("userData")
     if (!userDataString) {
-      return;      
+      return;
     }
 
     const userData = JSON.parse(userDataString);
-    const u = new UserModel(userData.email, userData.id, userData._token, new Date(userData.__expiresIn))
+    const u = new UserModel(userData.email, userData.id, userData._token, new Date(userData.__expiresIn), userData.name, userData.username, userData.photo)
 
-    if(u.token){
+    if (u.token) {
       this.user.next(u);
     }
   }
 
 
-  logOut(){
+  logOut() {
     this.user.next(null)
     localStorage.removeItem("userData")
   }

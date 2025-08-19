@@ -1,0 +1,70 @@
+.user-details-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.user-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.user-photo img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.user-info {
+  flex-grow: 1;
+}
+
+.user-info label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.user-info input[type="text"],
+.user-info input[type="email"],
+.user-info input[type="file"] {
+  width: 100%;
+  padding: 6px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-error {
+  border-color: red;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-group button {
+  padding: 8px 14px;
+  border: none;
+  background-color: #0088ff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-group button:hover {
+  background-color: #005ecb;
+}

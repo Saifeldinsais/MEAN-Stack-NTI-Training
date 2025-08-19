@@ -32,29 +32,8 @@ export class TaskList implements OnInit {
     this.router.navigate(["tasks", id]);
   }
 
-  // loadTasks() {
-  //   this.taskService.getTasks().subscribe({
-  //     next: (data) => {
-  //       this.tasks = data;
-  //       console.log(data);
-  //     },
-  //     error: (error) => {
-  //       console.error('error loading tasks:', error);
-  //     }
-  //   })
-  // }
-
-  deleteTask(id: string | undefined) {
-    // if (!id) return;
-    // this.taskService.deleteTask(id).subscribe({
-    //   next: () => {
-    //     console.log("task deleted");
-    //     this.loadTasks();
-    //   },
-    //   error: (error) => {
-    //     console.error('error deleting task:', error);
-    //   }
-    // });
+  goToTaskForm() {
+    this.router.navigate(['/user/taskform']);
   }
 }
 

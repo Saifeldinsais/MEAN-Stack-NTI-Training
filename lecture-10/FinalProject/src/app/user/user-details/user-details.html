@@ -1,0 +1,56 @@
+<div class="user-details-container">
+  <h2>User Profile</h2>
+
+  <div class="user-card">
+    <div class="user-photo">
+      <img
+        [src]="user.photo ? 'http://localhost:5000/uploads/' + user.photo : 'assets/user-default.jpg'"
+        alt="User Photo"
+      />
+    </div>
+
+    <div class="user-info">
+      <!-- Name -->
+      <label>Name:</label>
+      <input
+        type="text"
+        [(ngModel)]="user.name"
+        [readonly]="!isEditing"
+      />
+
+      <!-- Email (always readonly) -->
+      <label>Email:</label>
+      <input
+        type="email"
+        [value]="user.email"
+        readonly
+      />
+
+      <!-- Username -->
+      <label>Username:</label>
+      <input
+        type="text"
+        [(ngModel)]="user.username"
+        [readonly]="!isEditing"
+        [class.input-error]="usernameError"
+      />
+      <div class="error" *ngIf="usernameError">This username is already taken.</div>
+
+      <!-- Upload photo -->
+      <div *ngIf="isEditing">
+        <label>Upload New Photo:</label>
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+
+      <!-- Buttons -->
+      <div class="btn-group">
+        <button *ngIf="!isEditing" (click)="isEditing = true">Edit Profile</button>
+        <button *ngIf="isEditing" (click)="submitEdit()">Save</button>
+        <button *ngIf="isEditing" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

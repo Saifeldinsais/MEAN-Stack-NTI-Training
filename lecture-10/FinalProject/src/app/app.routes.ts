@@ -13,6 +13,7 @@ import { UserDashboard } from './user/user-dashboard/user-dashboard';
 import { authGuard } from './guards/auth-guard';
 import { userChildGuard } from './guards/user-child-guard';
 import { unsavedChangesGuard } from './guards/unsaved-changes-guard';
+import { UserDetails } from './user/user-details/user-details';
 
 export const routes: Routes = [
 
@@ -31,7 +32,8 @@ export const routes: Routes = [
             { path: "", redirectTo: "tasklist", pathMatch: "full" },
             { path: "dashboard", component: UserDashboard, title: "User Dashboard" },
             { path: "tasklist", component: TaskList, title: "Your Task List" },
-            { path: "taskform", component: TaskForm, title: "Add Task", canDeactivate: [unsavedChangesGuard] }
+            { path: "taskform", component: TaskForm, title: "Add Task", canDeactivate: [unsavedChangesGuard] },
+            {path: "userDetails", component: UserDetails, title: "Your Accout"}
         ]
     },
 

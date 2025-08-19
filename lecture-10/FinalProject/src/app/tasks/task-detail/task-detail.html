@@ -1,1 +1,39 @@
-<p>task-detail works! {{taskId}}</p>
+<div class="task-detail-container" *ngIf="task">
+  <h2 class="task-title">{{ task.title }}</h2>
+
+  <div class="task-cover">
+    <img [src]="task.coverImage ? 'http://localhost:5000/uploads/tasks/' + task.coverImage : 'assets/task-default.jpg'" alt="Task Image" />
+  </div>
+
+  <div class="task-info">
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Priority:</strong> {{ task.priority }}</p>
+    <p><strong>Status:</strong> {{ task.status }}</p>
+    <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
+    <p><strong>Comments:</strong> {{ task.comments }}</p>
+  </div>
+
+  <div class="task-actions">
+    <button (click)="deleteTask()" class="delete-btn">Delete</button>
+    <button (click)="toggleEdit()" class="edit-btn">{{ isEditing ? 'Cancel Edit' : 'Edit Task' }}</button>
+  </div>
+
+  <form *ngIf="isEditing" (ngSubmit)="submitEdit()" #editForm="ngForm" class="edit-form">
+    <label>Title: <input type="text" [(ngModel)]="task.title" name="title" required /></label>
+    <label>Description: <textarea [(ngModel)]="task.description" name="description"></textarea></label>
+    <label>Priority:
+      <select [(ngModel)]="task.priority" name="priority">
+        <option *ngFor="let p of ['Low', 'Medium', 'High', 'Crucial']" [value]="p">{{ p }}</option>
+      </select>
+    </label>
+    <label>Status:
+      <select [(ngModel)]="task.status" name="status">
+        <option *ngFor="let s of ['Not started', 'In progress', 'Completed', 'Late', 'Cancelled', 'Delayed']" [value]="s">{{ s }}</option>
+      </select>
+    </label>
+    <label>Due Date: <input type="date" [(ngModel)]="task.dueDate" name="dueDate" /></label>
+    <label>Comments: <textarea [(ngModel)]="task.comments" name="comments"></textarea></label>
+
+    <button type="submit" class="submit-btn">Submit Changes</button>
+  </form>
+</div>

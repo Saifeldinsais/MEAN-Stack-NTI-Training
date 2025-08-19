@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class Login {
   private authService = inject(AuthService)
-  private userService = inject(UserService);
   private router = inject(Router)
 
   @ViewChild("loginForm") loginForm !: NgForm;
@@ -20,9 +19,6 @@ export class Login {
   formData: any = {}
 
   onSubmit() {
-    // console.log(this.loginForm);
-    // console.log(this.loginForm.value);
-
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
       next: (token) => {
         console.log(token);

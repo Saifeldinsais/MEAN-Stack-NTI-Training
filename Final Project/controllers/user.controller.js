@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const path = require("path");
 
+
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}, { password: false, __v: false });
@@ -28,7 +30,7 @@ const signup = async (req, res) => {
       return res.status(400).json({ status: "fail", message: "All fields are required" });
     }
 
-    
+
 
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
@@ -134,13 +136,18 @@ const updateUserDetails = async (req, res) => {
     const { name, username } = req.body;
     const newPhoto = req.file ? req.file.filename : null;
 
+    console.log(userId)
+    console.log(name)
+    console.log(username)
+    console.log(newPhoto)
+
     const user = await User.findById(userId);
     if (!user) {
       if (newPhoto) {
         fs.unlinkSync(path.join(__dirname, "../uploads", newPhoto));
       }
       return res.status(404).json({ status: "fail", message: "User not found" });
-    }
+    } 
 
     let updated = false;
 
@@ -148,12 +155,7 @@ const updateUserDetails = async (req, res) => {
       if (name !== user.name) {
         user.name = name;
         updated = true;
-      } else {
-        if (newPhoto) {
-          fs.unlinkSync(path.join(__dirname, "../uploads", newPhoto));
-        }
-        return res.status(400).json({ status: "fail", message: "Name is already the same" });
-      }
+      } 
     }
 
     if (username) {
@@ -187,7 +189,12 @@ const updateUserDetails = async (req, res) => {
       return res.status(400).json({ status: "fail", message: "No changes made to user details" });
     } else {
       await user.save();
-      return res.status(200).json({ status: "success", data: { user } });
+      const token = jwt.sign(
+        { id: user._id, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN }
+      );
+      return res.status(200).json({ status: "success", token ,data: { user } });
     }
 
   } catch (error) {
@@ -198,7 +205,8 @@ const updateUserDetails = async (req, res) => {
         console.error("Error deleting uploaded file:", err);
       }
     }
-    res.status(400).json({ status: "fail", message: error.message });
+    console.log("error reached here")
+    res.status(400).json({ status: "fail", message: `error in updating the task ${error.message}` });
   }
 }
 
@@ -237,4 +245,4 @@ const resetPassword = async (req, res) => {
   }
 }
 
-module.exports = { signup, login, protectRoutes, updateUserDetails, getAllUsers,  getUserDetails, resetPassword };
+module.exports = { signup, login, protectRoutes, updateUserDetails, getAllUsers, getUserDetails, resetPassword };

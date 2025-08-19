@@ -2,6 +2,7 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskService } from '../../services/task-service';
 import { CanComponentDeactivate } from '../../models/can-component-deactivate.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-form',
@@ -19,6 +20,7 @@ export class TaskForm implements CanComponentDeactivate{
 
   private fb = inject(FormBuilder);
   private taskService = inject(TaskService);
+  private router = inject(Router)
 
   constructor() {
     this.addTaskForm = this.fb.group({
@@ -65,6 +67,7 @@ export class TaskForm implements CanComponentDeactivate{
         });
         this.selectedFile = null;
         this.selectedFileName = '';
+        this.router.navigate(['user/tasklist'])
       },
       error: (error) => {
         console.error('Error adding task:', error);
