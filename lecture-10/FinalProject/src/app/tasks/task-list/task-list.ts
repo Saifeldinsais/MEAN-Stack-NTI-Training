@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Task } from '../../models/tasks';
 import { TaskService } from '../../services/task-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -12,12 +13,10 @@ export class TaskList implements OnInit {
 
   tasks: Task[] = []
   private taskService = inject(TaskService);
+  private router = inject(Router)
 
   ngOnInit(): void {
-    this.loadTasks();
-  }
-
-  loadTasks() {
+    //this.loadTasks();
     this.taskService.getTasks().subscribe({
       next: (data) => {
         this.tasks = data;
@@ -29,17 +28,33 @@ export class TaskList implements OnInit {
     })
   }
 
+  taskDetail(id: string | undefined): void{
+    this.router.navigate(["tasks", id]);
+  }
+
+  // loadTasks() {
+  //   this.taskService.getTasks().subscribe({
+  //     next: (data) => {
+  //       this.tasks = data;
+  //       console.log(data);
+  //     },
+  //     error: (error) => {
+  //       console.error('error loading tasks:', error);
+  //     }
+  //   })
+  // }
+
   deleteTask(id: string | undefined) {
-    if (!id) return;
-    this.taskService.deleteTask(id).subscribe({
-      next: () => {
-        console.log("task deleted");
-        this.loadTasks();
-      },
-      error: (error) => {
-        console.error('error deleting task:', error);
-      }
-    });
+    // if (!id) return;
+    // this.taskService.deleteTask(id).subscribe({
+    //   next: () => {
+    //     console.log("task deleted");
+    //     this.loadTasks();
+    //   },
+    //   error: (error) => {
+    //     console.error('error deleting task:', error);
+    //   }
+    // });
   }
 }
 

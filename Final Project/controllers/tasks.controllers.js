@@ -5,26 +5,28 @@ const User = require("../models/user.model");
 
 const addTask = async (req, res) => {
   try {
-    //const userId = req.userId;
+    const userId = req.userId;
     const { title, description, priority, dueDate, status, comments } = req.body;
     console.log("File received:", req.file);
-    const imagePath = req.file ? req.file.path : null;
+    const imagePath = req.file ? req.file.filename : null;
+//    const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
+
 
     if (!title) {
       return res.status(400).json({ status: "fail", message: "Title is required" });
     }
 
-    // const user = await User.findById(userId);
-    // if (!user) {
-    //   return res.status(404).json({ status: "fail", message: "User not found" });
-    // }
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ status: "fail", message: "User not found" });
+    }
 
     const newTask = await Task.create({
       title, description, priority, dueDate, status, comments, coverImage: imagePath
     });
 
-    // user.listTasks.push(newTask._id);
-    // await user.save();
+    user.listTasks.push(newTask._id);
+    await user.save();
 
     return res.status(200).json({ status: "success", data: { task: newTask } });
   } catch (error) {
@@ -40,6 +42,8 @@ const getUserTasks = async (req, res) => {
     if (!user) {
       return res.status(404).json({ status: "fail", message: "User not found" });
     }
+
+    console.log(user.listTasks)
 
     return res.status(200).json({ status: "success", data: { tasks: user.listTasks } });
   } catch (error) {

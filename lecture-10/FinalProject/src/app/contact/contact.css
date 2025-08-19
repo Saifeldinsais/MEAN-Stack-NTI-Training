@@ -1,0 +1,23 @@
+section { padding: 8px 0; }
+ 
+.contact-form {
+  display: grid;
+  gap: 10px;
+ 
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.contact-form button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.contact-form button:hover { opacity: 0.9; }

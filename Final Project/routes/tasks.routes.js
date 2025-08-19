@@ -7,7 +7,7 @@ const multerErrorHandler = require("../middleware/multer.error.handler");
 
 const router = express.Router();
 
-// router.use(userController.protectRoutes);
+router.use(userController.protectRoutes);
 
 router.route("/")
   .post(upload.single("taskPhoto"), multerErrorHandler,tasksController.addTask)

@@ -1,6 +1,7 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskService } from '../../services/task-service';
+import { CanComponentDeactivate } from '../../models/can-component-deactivate.model';
 
 @Component({
   selector: 'app-task-form',
@@ -8,7 +9,9 @@ import { TaskService } from '../../services/task-service';
   templateUrl: './task-form.html',
   styleUrl: './task-form.css'
 })
-export class TaskForm {
+export class TaskForm implements CanComponentDeactivate{
+
+  hasUnsavedChanges: boolean = true;
 
   addTaskForm!: FormGroup;
   selectedFile: File | null = null;

@@ -2,6 +2,7 @@ import { Component, inject, ViewChild, viewChild } from '@angular/core';
 import { AuthService } from '../services/auth-service';
 import { UserService } from '../services/user-service';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,72 +13,73 @@ import { FormsModule, NgForm } from '@angular/forms';
 export class Login {
   private authService = inject(AuthService)
   private userService = inject(UserService);
+  private router = inject(Router)
 
   @ViewChild("loginForm") loginForm !: NgForm;
 
   formData: any = {}
 
-  onSubmit(){
-    console.log(this.loginForm);
-    console.log(this.loginForm.value);
-    
+  onSubmit() {
+    // console.log(this.loginForm);
+    // console.log(this.loginForm.value);
+
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
       next: (token) => {
         console.log(token);
         console.log("tokennnnn")
+        this.router.navigate(['user'])
       },
       error: (error) => {
         console.log(error)
       }
     })
-    this.formData = {...this.loginForm.value}
+    this.formData = { ...this.loginForm.value }
     this.loginForm.reset();
     console.log("submit button working");
-
   }
 }
 
 
 // setForm(){
-  //   this.jobForm.form.setValue({
-  //     fullName: 'saif',
-  //     position : 'student',
-  //     email: 'saif@gmail.com',
-  //     phone: '0123456789',
-  //     linkedIn: 'ay 7aga',
-  //     startDate: '2000/01/01',
-  //     employment: 'full-time',
-  //     address: {
-  //       street1: 'street',
-  //       street2: '',
-  //       city: 'cairo',
-  //       country: 'egypt',
-  //       state: 'cairo',
-  //       postalCode: '1234'
-  //     },
+//   this.jobForm.form.setValue({
+//     fullName: 'saif',
+//     position : 'student',
+//     email: 'saif@gmail.com',
+//     phone: '0123456789',
+//     linkedIn: 'ay 7aga',
+//     startDate: '2000/01/01',
+//     employment: 'full-time',
+//     address: {
+//       street1: 'street',
+//       street2: '',
+//       city: 'cairo',
+//       country: 'egypt',
+//       state: 'cairo',
+//       postalCode: '1234'
+//     },
 
-  //     textarea: 'hello'
+//     textarea: 'hello'
 
-  //   })
-  //   console.log("workingggg")
-  // }
+//   })
+//   console.log("workingggg")
+// }
 
-  // patchForm(){}
+// patchForm(){}
 
-    // errorMessage: string = '';
-  // isError: boolean = false;
+// errorMessage: string = '';
+// isError: boolean = false;
 
 
-  // onLogin(email: string = 'sais@gmail.com', username: string = 'sais', password: string = '12345678') {
-  //   this.authService.login(email, username, password).subscribe({
-      // next: (token) => {
-      //   console.log(token);
-      // },
-      // error: (error) => {
-      //   console.log(error)
-      // }
-  //   })
-  // }
+// onLogin(email: string = 'sais@gmail.com', username: string = 'sais', password: string = '12345678') {
+//   this.authService.login(email, username, password).subscribe({
+// next: (token) => {
+//   console.log(token);
+// },
+// error: (error) => {
+//   console.log(error)
+// }
+//   })
+// }
 
 //   addTaskToList() {
 //   const newTask = {

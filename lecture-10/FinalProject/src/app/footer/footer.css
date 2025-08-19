@@ -1,0 +1,14 @@
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: #fff;
+  margin-top: 24px;
+}
+ 
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20;
+}
+ 
+.muted { color: var(--muted); font-size: 14px; }

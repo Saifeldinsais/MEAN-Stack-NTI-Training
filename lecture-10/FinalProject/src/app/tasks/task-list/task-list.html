@@ -16,11 +16,13 @@
     </div>
     <div class="task-body">
       <div class="task-image">
-        <!-- <img [src]="task.coverImage ? 'http://localhost:5000/uploads/' + task.coverImage : 'assets/task-default.jpg'" alt="{{ task.title }}" class="task-img" /> -->
-        <img src="../../assets/task-default.jpg" alt="task-default">
+        <img [src]="task.coverImage ? 'http://localhost:5000/' + task.coverImage : 'assets/task-default.jpg'" alt="{{ task.title }}" class="task-img" />
+        <!-- <img [src]="../../assets/task-default.jpg" alt="task-default"> -->
       </div>
       <div class="task-details"></div>
     </div>
+
+    <button type="button" (click)="taskDetail(task._id)">Task Details</button>
   </div>
   }
 </div>

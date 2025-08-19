@@ -13,10 +13,10 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px 0;
-  background-color: #5e33d6;
+  background-color: rgba(57, 255, 242, 0.151);
 }
 
-.task-container {
+/* .task-container {
   background: #ebf8ff;
   border-radius: 15px;
   overflow: hidden;
@@ -25,7 +25,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-}
+} */
 
 .task-header{
   display: flex;
@@ -33,6 +33,38 @@
   gap: 20px;
   margin-bottom: 15px;
 }
+
+
+.task-container {
+  background: #ebf8ff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(105, 220, 255, 0.2);
+  transition: transform 0.3s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 250px; /* Add a fixed height to control layout */
+}
+
+.task-body {
+  display: flex;
+  gap: 15px; /* Optional: to separate image and details */
+}
+
+.task-image {
+  flex: 1;
+  height: 100%;
+  overflow: hidden; /* Prevent overflow */
+}
+
+.task-img {
+  width: 15%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+
 
 /* .update-btn,
 .delete-btn {

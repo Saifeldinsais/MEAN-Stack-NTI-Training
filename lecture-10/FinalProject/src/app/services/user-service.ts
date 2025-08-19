@@ -13,18 +13,42 @@ export class UserService {
   private url = 'http://localhost:5000/users'
 
 
-  // ask why did we create the user as a class and why does using observable get an error
 
-  // getUserDetails(): Observable<User>{
+  getUserDetails(): Observable<any> {
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({ Authorization: `Bearer ${user?.token}` });
+        return this.http.get(`${this.url}/me`, { headers });
+      })
+    );
+  }
 
-  // }
+  updateUserDetails(updatedData: { name?: string; email?: string; photo?: File }): Observable<any> {
+    const formData = new FormData();
+    if (updatedData.name) formData.append('name', updatedData.name);
+    if (updatedData.email) formData.append('email', updatedData.email);
+    if (updatedData.photo) formData.append('photo', updatedData.photo);
 
-  // updateUserDetails(): Observable<User>{
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({ Authorization: `Bearer ${user?.token}` });
+        return this.http.patch(`${this.url}/updateMe`, formData, { headers });
+      })
+    );
+  }
 
-  // }
+  resetPassword(currentPassword: string, newPassword: string, newPasswordConfirm: string): Observable<any> {
+    const body = { currentPassword, newPassword, newPasswordConfirm };
 
-  // resetPassword(): Observable<User>{
-
-  // }
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        const headers = new HttpHeaders({ Authorization: `Bearer ${user?.token}` });
+        return this.http.patch(`${this.url}/reset-password`, body, { headers });
+      })
+    );
+  }
 
 }

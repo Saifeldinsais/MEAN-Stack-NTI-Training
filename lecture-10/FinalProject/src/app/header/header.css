@@ -1,0 +1,41 @@
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+}
+ 
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+}
+ 
+.brand a {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary);
+}
+ 
+.nav a {
+  margin-left: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+ 
+/* .nav a.active {
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid var(--primary);
+} */
+ 
+.nav a:last-child {
+  background: var(--primary);
+  color: #fff;
+}
+.nav a:last-child:hover {
+  opacity: 0.9;
+}
+
+.active{
+  font-weight: bold;
+  text-decoration: underline;
+}

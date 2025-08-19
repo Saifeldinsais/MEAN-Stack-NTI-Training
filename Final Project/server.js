@@ -1,5 +1,5 @@
 const express = require("express");
-const eventRouter = require("./routes/tasks.routes");
+const taskRouter = require("./routes/tasks.routes");
 const usersRouter = require("./routes/user.routes");
 const connectDB = require("./config/db");
 const path = require("path");
@@ -13,7 +13,8 @@ connectDB();
 
 
 app.use(cors({origin: 'http://localhost:4200'}));
-app.use("/tasks", eventRouter);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use("/tasks", taskRouter);
 app.use("/users", usersRouter);
 
 

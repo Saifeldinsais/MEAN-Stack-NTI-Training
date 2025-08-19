@@ -17,6 +17,7 @@ export class TaskService {
       exhaustMap(user => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${user?.token}`
+          //Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTU1Y2M5Y2NlNTZhYWFkNzhjNjkzOCIsImVtYWlsIjoic2FpZnNhaXNAZ21haWwuY29tIiwiaWF0IjoxNzU1NTI4Njc2LCJleHAiOjE3NTYxMzM0NzZ9.KbW7nbUStdMTGdw05_FJCDMrYz-GNgxY95lFAqbYAYo`
         });
         return this.http.get<any>(this.URL, { headers })
           .pipe(map(response => response.data.tasks))
@@ -62,12 +63,13 @@ export class TaskService {
     );
   }
 
-  getTaskByid(id: string | undefined): Observable<Task>{
+  getTaskByid(id: string | null): Observable<Task>{
     return this.authService.user.pipe(
       take(1),
       exhaustMap(user => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${user?.token}`
+          //Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTU1Y2M5Y2NlNTZhYWFkNzhjNjkzOCIsImVtYWlsIjoic2FpZnNhaXNAZ21haWwuY29tIiwiaWF0IjoxNzU1NTI4Njc2LCJleHAiOjE3NTYxMzM0NzZ9.KbW7nbUStdMTGdw05_FJCDMrYz-GNgxY95lFAqbYAYo`
         });
         return this.http.get<any>(`${this.URL}/${id}`, { headers })
           .pipe(map(response => response.data.task));

@@ -5,11 +5,14 @@ import { AuthService } from './services/auth-service';
 import { Signup } from './signup/signup';
 import { TaskDetail } from './tasks/task-detail/task-detail';
 import { TaskForm } from './tasks/task-form/task-form';
+import { Header } from './header/header';
+import { Footer } from './footer/footer';
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
-  imports: [TaskList, Login, Signup, TaskDetail, TaskForm],
+  imports: [TaskList, Login, Signup, TaskDetail, TaskForm, Header, Footer, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
