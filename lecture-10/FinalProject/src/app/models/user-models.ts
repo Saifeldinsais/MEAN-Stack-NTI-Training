@@ -16,4 +16,8 @@ export class UserModel {
 
         return this._token;
     }
+
+    get expiresIn(): Date {
+    return this.__expiresIn;
+  }
 }

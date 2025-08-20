@@ -1,77 +1,3 @@
-<!-- <section class="container" [class.touched-form]="newTaskForm.touched">
-    <h2>Enter your new task details</h2>
-    <form class="form" #newTaskForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="input-box">
-            <label for="title">Title: </label>
-            <input type="text" name="title" ngModel #titleRef='ngModel' required>
-            @if(titleRef?.invalid && titleRef?.touched){
-            <div>
-                <small>Please enter a title to your task</small>
-            </div>
-            }
-        </div>
-
-        <div class="input-box">
-            <label for="description">Description: </label>
-            <input type="text" name="description" ngModel #descriptionRef='ngModel'>
-        </div>
-
-        <div class="input-box">
-            <label for="priority">priority: </label>
-            <select id="priority" name="priority" ngModel #priorityRef="ngModel">
-                <option value="Low">Low</option>
-                <option value="Medium" selected>Medium</option>
-                <option value="High">High</option>
-                <option value="Crucial">Crucial</option>
-            </select>
-        </div>
-
-        <div class="input-box">
-            <label for="dueDate">Due Date: </label>
-            <input type="date" name="dueDate" ngModel #dueDateRef="ngModel" />
-        </div>
-
-        <div class="input-box">
-            <label for="status">Status: </label>
-            <select id="status" name="status" ngModel #statusRef="ngModel">
-                <option value="Not started" selected>Not started</option>
-                <option value="In progress">In progress</option>
-                <option value="Completed">Completed</option>
-                <option value="Late">Late</option>
-                <option value="Cancelled">Cancelled</option>
-                <option value="Delayed">Delayed</option>
-            </select>
-        </div>
-
-        <div class="input-box">
-            <label for="comments">Comments: </label>
-            <input type="text" name="comments" ngModel #commentsRef='ngModel'>
-        </div>
-
-        <div class="input-box">
-            <label for="photo">photo</label>
-            <input type="file" (change)="onFileSelected($event)" accept="image/*">
-        </div>
-
-
-        <button type="submit" class="submit-btn" [disabled]="!newTaskForm.valid"
-            [style.backgroundColor]="newTaskForm.valid? '#007bff' : 'gray' ">
-            Add Task
-        </button>
-    </form>
-</section> -->
-
-
-
-<!-- 
-______________________________________________________________________________
-______________________________________________________________________________
-______________________________________________________________________________
-______________________________________________________________________________
-______________________________________________________________________________
-______________________________________________________________________________
-______________________________________________________________________________ -->
-
 <div class="container">
     <header>
         <div>
@@ -83,7 +9,6 @@ ______________________________________________________________________________ -
     </header>
 
     <form #newTaskForm="ngForm" (ngSubmit)="onSubmit()" aria-label="Task Form" [formGroup]="addTaskForm">
-        <!-- Basic Information -->
         <section class="card">
             <h2>Basic Information</h2>
             <div class="fields">
@@ -92,12 +17,6 @@ ______________________________________________________________________________ -
                     <input id="title" name="title" type="text" required placeholder="e.g., Build API"
                         formControlName="title" />
                     <div class="hint">Task title shown to users.</div>
-
-                    <!-- @if(titleRef.invalid && titleRef.touched){
-                    <div>
-                        <small class="error">Title is required</small>
-                    </div>
-                    } -->
                 </div>
 
                 <div class="field span-6">
@@ -113,7 +32,7 @@ ______________________________________________________________________________ -
             </div>
         </section>
 
-        <!-- Task Details -->
+
         <section class="card">
             <h2>Task Details</h2>
             <div class="fields">
@@ -156,7 +75,7 @@ ______________________________________________________________________________ -
             </div>
         </div>
 
-        <!-- Submit Actions -->
+
         <div class="actions">
             <button type="reset" class="btn ghost">Clear</button>
             <button type="submit" class="btn primary" [disabled]="!newTaskForm.valid">Save Task</button>

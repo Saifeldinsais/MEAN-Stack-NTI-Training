@@ -22,7 +22,7 @@ const signup = async (req, res) => {
   const uploadedPhoto = req.file ? req.file.filename : "profile.png";
   const photoPath = path.join(__dirname, "../uploads", uploadedPhoto);
   try {
-    let { name, username, email, password, photo } = req.body;
+    let { name, username, email, password } = req.body;
     if (!name || !email || !password || !username) {
       if (req.file) {
         fs.unlinkSync(photoPath);
@@ -30,7 +30,11 @@ const signup = async (req, res) => {
       return res.status(400).json({ status: "fail", message: "All fields are required" });
     }
 
-
+    console.log("User Controller:------------------------")
+    console.log(name)
+    console.log(username)
+    console.log(uploadedPhoto)
+    console.log("----------------------------------------")
 
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
@@ -48,7 +52,7 @@ const signup = async (req, res) => {
       return res.status(400).json({ status: "fail", message: "Username already exists" });
     }
 
-    const user = await User.create({ name, email, username, password, photo });
+    const user = await User.create({ name, email, username, password, photo: uploadedPhoto });
 
     // jwt
     const token = jwt.sign(
@@ -124,6 +128,10 @@ const getUserDetails = async (req, res) => {
     if (!user) {
       return res.status(404).json({ status: "fail", message: "User not found" });
     }
+    console.log(userId)
+    console.log(user.name);
+    console.log(user.photo)
+    
     return res.status(200).json({ status: "success", data: { user } });
   } catch (error) {
     return res.status(400).json({ status: "fail", message: error.message });

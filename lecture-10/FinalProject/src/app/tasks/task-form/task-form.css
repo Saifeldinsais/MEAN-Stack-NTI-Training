@@ -2,18 +2,23 @@
 .container {
   max-width: 900px;
   margin: 2rem auto;
-  padding: 1.5rem;
-  font-family: Arial, sans-serif;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
   color: #333;
+  background: #f9fcff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 94, 255, 0.1);
 }
 
 /* Header */
 header .title {
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2F86FF;
+  margin-bottom: 0.5rem;
 }
 .lead {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #666;
 }
 .req {
@@ -22,44 +27,53 @@ header .title {
 
 /* Card Sections */
 .card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #dce8f7;
+  border-radius: 10px;
+  padding: 1.5rem;
   margin-top: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 6px rgba(0, 94, 255, 0.05);
 }
 .card h2 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
+  color: #005eff;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
 }
 
-/* Field Groups */
+/* Fields */
 .fields {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 .field {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 200px;
+  min-width: 240px;
 }
 .field input,
 .field select,
 .field textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 0.65rem;
+  border: 1px solid #ccd8e4;
+  border-radius: 8px;
   outline: none;
   font-size: 14px;
-  transition: border-color 0.2s;
+  background-color: #f8fbff;
+  transition: border-color 0.3s ease;
 }
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: #c62828;
+  border-color: #2F86FF;
+}
+.field label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
 }
 .field textarea {
   resize: vertical;
@@ -70,10 +84,10 @@ header .title {
   color: #888;
   margin-top: 0.25rem;
 }
-.error {
-  color: #c62828;
-  font-size: 0.75rem;
-  margin-top: 0.3rem;
+
+/* Image Input */
+input[type="file"] {
+  padding: 6px 0;
 }
 
 /* Actions */
@@ -81,49 +95,45 @@ header .title {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 .btn {
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
   border: none;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s ease;
 }
 .btn.primary {
-  background: #c62828;
+  background: #2F86FF;
   color: #fff;
+}
+.btn.primary:hover {
+  background: #2765bd;
 }
 .btn.ghost {
   background: transparent;
+  border: 1px solid #2F86FF;
+  color: #2F86FF;
+}
+.btn.ghost:hover {
+  background-color: #eaf4ff;
+}
+
+form.ng-invalid .primary {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Validation */
+input.ng-invalid.ng-touched {
   border: 1px solid #c62828;
-  color: #c62828;
 }
-.btn:hover {
-  opacity: 0.9;
-}
-
-.toggle input:checked + .slider {
-    background-color: #c62828;
-}
-
-.toggle input:checked + .slider::before{
-    transform: translateX(20px);
-}
-
-form.ng-invalid .primary{
-    background-color: #888;
-    cursor: not-allowed;
-}
-
-input.ng-invalid.ng-touched{
-    border: 1px solid #c62828;
-}
-
-
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .fields {
     flex-direction: column;
   }

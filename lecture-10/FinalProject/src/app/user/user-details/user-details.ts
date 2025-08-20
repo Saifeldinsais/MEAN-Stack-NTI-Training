@@ -26,30 +26,74 @@ export class UserDetails implements OnInit {
     this.loadUser();
   }
 
+  // loadUser() {
+  //   const userData = localStorage.getItem('userData');
+  //   if (userData) {
+  //     const parsed = JSON.parse(userData);
+  //     this.user = new UserModel(
+  //       parsed.email,
+  //       parsed.id,
+  //       parsed._token,
+  //       new Date(parsed.__expiresIn),
+  //       parsed.name,
+  //       parsed.username,
+  //       parsed.photo
+  //     );
+  //     console.log(this.user.email);
+  //     console.log(this.user.name);
+  //     console.log(this.user.username);
+  //     console.log(this.user.photo);
+
+  //     this.originalUser = new UserModel(
+  //       parsed.email,
+  //       parsed.id,
+  //       parsed._token,
+  //       new Date(parsed.__expiresIn),
+  //       parsed.name,
+  //       parsed.username,
+  //       parsed.photo
+  //     );
+  //   }
+  // }
+
+
   loadUser() {
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      const parsed = JSON.parse(userData);
-      this.user = new UserModel(
-        parsed.email,
-        parsed.id,
-        parsed._token,
-        new Date(parsed.__expiresIn),
-        parsed.name,
-        parsed.username,
-        parsed.photo
-      );
-      this.originalUser = new UserModel(
-        parsed.email,
-        parsed.id,
-        parsed._token,
-        new Date(parsed.__expiresIn),
-        parsed.name,
-        parsed.username,
-        parsed.photo
-      );
-    }
+    this.userService.getUserDetails().subscribe({
+      next: (response) => {
+        const user = response.data.user;
+        const currentToken = this.authService.user.value?.token;
+        const currentExpiresIn = this.authService.user.value?.expiresIn;
+
+        const userModel = new UserModel(
+          user.email,
+          user._id,
+          currentToken!,
+          currentExpiresIn!,
+          user.name,
+          user.username,
+          user.photo
+        );
+
+        this.user = userModel;
+        this.originalUser = new UserModel(
+          user.email,
+          user._id,
+          currentToken!,
+          currentExpiresIn!,
+          user.name,
+          user.username,
+          user.photo
+        );
+
+        // Optional: Update localStorage if you want
+        localStorage.setItem('userData', JSON.stringify(userModel));
+      },
+      error: (err) => {
+        console.error("Failed to fetch user details", err);
+      }
+    });
   }
+
 
 
   toggleEdit() {

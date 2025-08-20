@@ -1,26 +1,27 @@
 <header class="site-header">
-  <div class="container header-row">
+  <div class="header-row">
     <div class="brand">
-      <a>My Site</a>
+      <img src="assets/TaskTick.png" alt="Logo" class="logo-img" />
+      <span>TaskTick</span>
     </div>
 
     <nav class="nav">
-      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      <a routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">About</a>
-      <a routerLink="/contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Contact</a>
-      <a routerLink="/user/tasklist" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Tasks</a>
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">About</a>
+      <a routerLink="/contact" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Contact</a>
+      <a routerLink="/user/tasklist" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Tasks</a>
 
       <ng-container *ngIf="!isAuthenticated; else loggedIn">
-        <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Sign In</a>
-        <a routerLink="/signup" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Sign Up</a>
+        <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Sign In</a>
+        <a routerLink="/signup" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Sign Up</a>
       </ng-container>
 
       <ng-template #loggedIn>
-        <a routerLink="/user/userDetails" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">User
-          Details</a>
+        <a routerLink="/user/userDetails" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          User Details
+        </a>
         <a (click)="onLogout()" style="cursor:pointer;">Sign Out</a>
       </ng-template>
-
     </nav>
   </div>
 </header>

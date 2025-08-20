@@ -1,6 +1,7 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +16,7 @@ export class Signup {
   error: string = ""
 
   private authService = inject(AuthService)
+  private router = inject(Router)
 
   @ViewChild("signupForm") signupForm !: NgForm
 
@@ -37,6 +39,9 @@ export class Signup {
     fd.append("email", email)
     fd.append("password", password)
     if (this.selectedFile) {
+      
+      console.log(this.selectedFile);
+      
       fd.append("photo", this.selectedFile)
     }
     
@@ -46,6 +51,7 @@ export class Signup {
         this.signupForm.reset();
         this.selectedFile = null;
         this.selectedFileName = ""
+        this.router.navigate(['user'])
       }, error: (err)=>{
         console.log(err)
         this.error = err.message;

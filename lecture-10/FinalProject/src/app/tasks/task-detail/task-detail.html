@@ -2,7 +2,7 @@
   <h2 class="task-title">{{ task.title }}</h2>
 
   <div class="task-cover">
-    <img [src]="task.coverImage ? 'http://localhost:5000/uploads/tasks/' + task.coverImage : 'assets/task-default.jpg'" alt="Task Image" />
+    <img [src]="task.coverImage ? 'http://localhost:5000/uploads/tasks/' + task.coverImage : 'http://localhost:5000/uploads/task-image.jpg'" alt="Task Image" />
   </div>
 
   <div class="task-info">
@@ -37,3 +37,5 @@
     <button type="submit" class="submit-btn">Submit Changes</button>
   </form>
 </div>
+
+

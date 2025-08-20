@@ -1,27 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --primary: red;
+  --primary: rgb(13, 0, 255);
   --text: #222;
   --muted: #666;
   --bg: #fff;
   --border: #eee;
 }
- 
-* { box-sizing: border-box; }
- 
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--text);
-  background: var(--bg);
+  background: linear-gradient(to right, #C5FFFC, #D5F9FF);
 }
- 
+
 .container {
-  max-width: 1100px;
-  margin: 0 auto;
+  width: 100%;
   padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
- 
-a { color: var(--primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
+
+a {
+  color: #2F86FF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

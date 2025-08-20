@@ -56,6 +56,8 @@ export class TaskForm implements CanComponentDeactivate{
 
     if (this.selectedFile) {
       formData.append('taskPhoto', this.selectedFile);
+    }else{
+      formData.append('taskPhoto', '/assets/task-default.jpg')
     }
 
     this.taskService.addTask(formData).subscribe({

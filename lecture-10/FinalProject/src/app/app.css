@@ -1,10 +1,10 @@
 .container {
   display: flex;
   justify-content: center;
-  background-color: rgba(57, 255, 242, 0.151);
+  background: linear-gradient(to right, #C5FFFC, #D5F9FF);
   margin-top: 50px;
 }
  
 div {
-  width: 75%;
+  width: 100%;
 }

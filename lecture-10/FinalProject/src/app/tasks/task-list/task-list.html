@@ -4,47 +4,21 @@
 <div class="task-grid">
   @for (task of tasks; track task._id; let i = $index) {
   <div class="task-container">
-    <div class="task-header">
-      <div class="task-title"><strong>{{task.title}}</strong></div>
-      <div class="task-priority"><strong>Priority</strong></div>
-      <div class="task-status"><strong>Status</strong></div>
-    </div>
+    <div class="task-title"><strong>{{task.title}}</strong></div>
+
     <div class="task-body">
       <div class="task-image">
-        <img [src]="task.coverImage ? 'http://localhost:5000/uploads/tasks/' + task.coverImage : 'assets/task-default.jpg'"
+        <img
+          [src]="task.coverImage ? 'http://localhost:5000/uploads/tasks/' + task.coverImage : 'http://localhost:5000/uploads/task-image.jpg'"
           alt="{{ task.title }}" class="task-img" />
-        <!-- <img [src]="../../assets/task-default.jpg" alt="task-default"> -->
       </div>
-      <div class="task-details"></div>
+      <div class="task-details">
+        <div><strong>Priority:</strong> {{task.priority}}</div>
+        <div><strong>Status:</strong> {{task.status}}</div>
+      </div>
     </div>
 
     <button type="button" (click)="taskDetail(task._id)">Task Details</button>
   </div>
   }
 </div>
-
-
-<!-- <div class="task-card">
-    <div class="task-info">
-
-      <img [src]='"http://localhost:5000/uploads/" + task.coverImage' alt="{{ task.title }}" class="task-img" />
-
-      <button class="update-btn" (click)="updateTask(task._id, i)">
-        Update
-      </button>
-
-      <button class="delete-btn" (click)="deleteTask(task._id, i)">
-        Delete
-      </button>
-
-      <h3>{{ task.title }}</h3>
-
-      <p>{{ task.description }}</p>
-
-      <p>
-        <strong>priority: {{task.priority}}</strong>
-      </p>
-
-
-    </div>
-  </div> -->

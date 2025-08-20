@@ -19,7 +19,7 @@ export class UserService {
       take(1),
       exhaustMap(user => {
         const headers = new HttpHeaders({ Authorization: `Bearer ${user?.token}` });
-        return this.http.get(`${this.url}/me`, { headers });
+        return this.http.get(`${this.url}/getUserDetails`, { headers });
       })
     );
   }
