@@ -10,7 +10,7 @@
     </div>
 
     <div class="user-info">
-      <!-- Name -->
+      <!-- name -->
       <label>Name:</label>
       <input
         type="text"
@@ -18,7 +18,7 @@
         [readonly]="!isEditing"
       />
 
-      <!-- Email (always readonly) -->
+      <!-- email (always readonly) -->
       <label>Email:</label>
       <input
         type="email"
@@ -36,7 +36,7 @@
       />
       <div class="error" *ngIf="usernameError">This username is already taken.</div>
 
-      <!-- Upload photo -->
+      <!-- photo -->
       <div *ngIf="isEditing">
         <label>Upload New Photo:</label>
         <input
@@ -45,7 +45,7 @@
         />
       </div>
 
-      <!-- Buttons -->
+      <!-- buttons -->
       <div class="btn-group">
         <button *ngIf="!isEditing" (click)="isEditing = true">Edit Profile</button>
         <button *ngIf="isEditing" (click)="submitEdit()">Save</button>

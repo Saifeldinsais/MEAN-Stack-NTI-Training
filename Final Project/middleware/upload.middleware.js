@@ -4,9 +4,9 @@ const path = require("path");
 const diskStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (file.fieldname === 'taskPhoto') {
-      cb(null, 'uploads/tasks'); // For task photos
+      cb(null, 'uploads/tasks'); // forr task photos
     } else if (file.fieldname === 'photo') {
-      cb(null, 'uploads'); // For user profile pictures
+      cb(null, 'uploads'); // for user profile pictures
     } else {
       cb(new Error('Invalid field name for file upload'), null);
     }
